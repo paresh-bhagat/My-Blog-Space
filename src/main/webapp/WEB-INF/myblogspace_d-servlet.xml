@@ -14,6 +14,8 @@
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	
+	<tx:annotation-driven/>
+	
 	<!-- This Line is used for scanning all the packages that have controller classes -->
   <context:component-scan base-package="com.MyBlogSpace"></context:component-scan>
    
@@ -23,6 +25,47 @@
     	<property name="prefix" value="/WEB-INF/views/"/>
     	<property name="suffix" value=".jsp"/>
   
+	</bean>
+	
+	<!-- datasource object -->
+	
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="ds">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/MyBlogSpace?createDatabaseIfNotExist=true"/>
+		<property name="username" value="root"/>
+		<property name="password" value="root"></property>
+	</bean>
+	
+	<!-- session factory object -->
+	
+	<bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" name="factory">
+		<property name="dataSource" ref="ds"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.MyBlogSpace.model.UserInfo</value>
+				<value>com.MyBlogSpace.model.BlogList</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- HibernateTemplate object -->
+	
+	<bean class="org.springframework.orm.hibernate5.HibernateTemplate" name="hibernateTemplate"> 
+		<property name="sessionFactory" ref="factory"></property>
+	</bean>
+	
+	<!-- transaction manager object -->
+	
+	<bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" name="transactionManager"> 
+		<property name="sessionFactory" ref="factory"></property>
 	</bean>
 	
 	<mvc:resources mapping="/resources/**" location="/resources/"  

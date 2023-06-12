@@ -1,10 +1,14 @@
-package com.MyBlogSpace;
+package com.MyBlogSpace.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.MyBlogSpace.service.UserService;
+
 @Controller
 public class LoginController {
+	
+	private UserService userservice;
 	
 	@RequestMapping("/login")
 	public String Login() {
