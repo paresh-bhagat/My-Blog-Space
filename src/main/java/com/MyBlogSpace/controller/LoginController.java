@@ -2,6 +2,7 @@ package com.MyBlogSpace.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.MyBlogSpace.service.UserService;
 
@@ -14,6 +15,12 @@ public class LoginController {
 	public String Login() {
 		System.out.print("signin page");
 		return "signin";
+		
+	}
+	
+	@RequestMapping(path="/processsigninform", method=RequestMethod.POST)
+	public String handleSignInForm() {
+		return "";
 		
 	}
 	
