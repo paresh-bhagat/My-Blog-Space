@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>MyBlogSpace</title>
     
     <!-- Bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
@@ -32,15 +32,27 @@
                 </div>
           
                 <div class="modal-body p-5 pt-0">
-                  <form class="">
+                
+                  <form class="" action="processregisterform" method="post" >
+                  
                     <div class="form-floating mb-3">
-                      <input type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
-                      <label for="floatingInput">Email address</label>
+                      <input type="text" 
+                      class="form-control rounded-3" 
+                      id="floatingInput"
+                      name="user_id"
+                      placeholder="paresh">
+                      <label for="floatingInput">Username</label>
                     </div>
+                    
                     <div class="form-floating mb-3">
-                      <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+                      <input type="password" 
+                      class="form-control rounded-3" 
+                      id="floatingPassword"
+                      name="user_password"
+                      placeholder="Password">
                       <label for="floatingPassword">Password</label>
                     </div>
+                    
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
                     <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
                     

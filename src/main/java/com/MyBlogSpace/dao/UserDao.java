@@ -21,9 +21,9 @@ public class UserDao {
 	
 	//check if userid is present
 	
-	public int check_userid(String name) {
+	public int check_userid(String userid) {
 		
-		UserInfo usr_info = this.hibernateTemplate.get(UserInfo.class, name);
+		UserInfo usr_info = this.hibernateTemplate.get(UserInfo.class, userid);
 		
 		if(usr_info == null)
 			return 0;
@@ -35,16 +35,14 @@ public class UserDao {
 	@Transactional
 	public void add_new_account(UserInfo user) {
 		
-		List<BlogList> list = new ArrayList<BlogList>();
-		user.setBlogs(list);
 		this.hibernateTemplate.save(user);
 	}
 	
 	// get user password of a user
 
-	public String get_userpassword(String usr_name) {
+	public String get_userpassword(String usr_id) {
 		
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
+		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_id);
 		return temp.getUser_password();
 	}
 	
@@ -59,7 +57,7 @@ public class UserDao {
 	
 	// get all tasks of a user
 
-	public List<String> get_all_task(String usr_name) {
+	public List<String> get_all_blogs(String usr_name) {
 		
 		List<String> result = new ArrayList<String>();
 		
@@ -82,7 +80,7 @@ public class UserDao {
 	
 	// get all details of a blog
 	
-	public List<String> get_task_details(String usr_name, String task) {
+	public List<String> get_blog_details(String usr_name, String task) {
 		
 		List<String> result = new ArrayList<String>();
 		
@@ -109,7 +107,7 @@ public class UserDao {
 	
 	//delete a task
 	@Transactional
-	public void delete_task(String usr_name, String task) {
+	public void delete_blog(String usr_name, String task) {
 		
 		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
 		
@@ -131,7 +129,7 @@ public class UserDao {
 	
 	//check if a task exist
 
-	public int check_task_exist(String usr_name, String new_task) {
+	public int check_blog_exist(String usr_name, String new_task) {
 		
 		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
 		List<BlogList> tasks_list = temp.getBlogs();
@@ -152,7 +150,7 @@ public class UserDao {
 	
 	// add a new blog
 	@Transactional
-	public void add_task(String usr_name, String blog_name,String blog_details, String blog_date, 
+	public void add_blog(String usr_name, String blog_name,String blog_details, String blog_date, 
 			String blog_topic ) throws ParseException {
 		
 		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
@@ -172,7 +170,7 @@ public class UserDao {
 	
 	// update a task
 	@Transactional
-	public void update_task(String usr_name, String new_blog_name, String blog_details, String blog_date, 
+	public void update_blog(String usr_name, String new_blog_name, String blog_details, String blog_date, 
 			String blog_topic, String old_blog) throws ParseException {
 				
 		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);

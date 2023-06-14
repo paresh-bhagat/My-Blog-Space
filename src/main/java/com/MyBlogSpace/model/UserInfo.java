@@ -61,32 +61,31 @@ public class UserInfo {
 	public void setUser_password(String user_password) {
 		this.user_password = user_password;
 	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return this.user_id + ":" + this.user_password;
-	}
 	
-	// add task
+	// add blog
 	
 	public void add_blog(BlogList task)
 	{
 		this.blogs.add(task);
 	}
 	
-	// remove task
+	// remove blog
 	public void remove_blog(int i)
 	{
 		this.blogs.remove(i);
 	}
 	
-	// update task
+	// update blog
 	public void update_blog(int i, String new_blog_name, String blog_details, String blog_topic, Date blog_date ) {
 		this.blogs.get(i).setBlog_name(new_blog_name);
 		this.blogs.get(i).setBlog_details(blog_details);
 		this.blogs.get(i).setBlog_topic(blog_topic);
 		this.blogs.get(i).setBlog_date(blog_date);
+	}
+
+	@Override
+	public String toString() {
+		return "UserInfo [user_id=" + user_id + ", user_password=" + user_password + ", blogs=" + blogs + "]";
 	}
 	
 
