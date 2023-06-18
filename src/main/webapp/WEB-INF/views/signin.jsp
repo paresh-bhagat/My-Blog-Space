@@ -26,38 +26,31 @@
     
     <main class="form-signin w-100 m-auto">
     
-      <form action="processsigninform" method="post">
+      <form action="processloginform" method="post">
         <img class="mb-4" src="<c:url value="/resources/images/logo.png" />" alt="" width="170" height="140">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     
-        <div class="form-floating">
+        <div class="form-floating mb-3">
           <input 
           type="text" 
-          class="form-control" 
+          class="form-control rounded-3" 
           id="floatingInput"
           name="user_id"
           placeholder="paresh">
           <label for="floatingInput">UserName</label>
         </div>
         
-        <div class="form-floating">
+        <div class="form-floating mb-3">
           <input type="password" 
-          class="form-control" 
+          class="form-control rounded-3"
           id="floatingPassword"
           name="user_password"
           placeholder="Password">
           <label for="floatingPassword">Password</label>
         </div>
-   
-   		<!--  
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div> 
-        -->
         
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        
         <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
       </form>
     </main>

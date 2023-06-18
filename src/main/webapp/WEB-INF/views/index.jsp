@@ -41,8 +41,8 @@
 
                     <h3 class="float-md-start mb-0">MyBlogSpace</h3>
                       <nav class="nav nav-masthead justify-content-center float-md-end">
-						 <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>
                         <a class="nav-link fw-bold py-1 px-0" href="<c:url value="/login" /> ">Login</a>
+                        <a class="nav-link fw-bold py-1 px-0" href="<c:url value="/SignUp" />">Signup</a>
                         
                       </nav>
                   </div>
@@ -53,7 +53,7 @@
                   <p class="lead">Cover is a one-page template for building simple and beautiful home pages. 
                   Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
                   <p class="lead">
-                    <a href="<c:url value="/register" />" class="btn btn-lg btn-light fw-bold border-white bg-white">Register</a>
+                    <a href="<c:url value="/SignUp" />" class="btn btn-lg btn-light fw-bold border-white bg-white">Signup</a>
                   </p>
                 </main>
           

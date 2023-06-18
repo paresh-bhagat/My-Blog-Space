@@ -5,6 +5,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%@ page isELIgnored = "false" %>
+
 <!DOCTYPE html>
 
 <html lang="en" data-bs-theme="auto">
@@ -30,7 +32,7 @@
 <header data-bs-theme="dark">
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="home.html">MyBlogSpace</a>
+      <a class="navbar-brand" href="<c:url value="/" />">MyBlogSpace</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" 
       aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,11 +41,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        
+          <li class="nav-item">${user_id}'s home</li>
+          
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+            <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="userhome.html">MyBlogs</a>
+            <a class="nav-link" aria-current="page" href="<c:url value="/myblogs" />">MyBlogs</a>
           </li>
         </ul>
         
@@ -85,17 +90,23 @@
            quaerat cum asperiores tenetur tempora possimus dolore facilis! Non officia doloribus sequi architecto 
            mollitia maxime dolorum consectetur, a 
           laboriosam praesentium in accusamus pariatur iusto voluptates eaque.</p>
+          
+          
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-          <a href="blogedit.html"> 
+        
+          <button type="button" class="btn btn-danger btn-lg px-4">Back</button>
+        	
+          <a href="<c:url value="/editblog" />"> 
             <button type="button" class="btn btn-info btn-lg px-4">Edit blog</button>
           </a>
           
           <button type="button" class="btn btn-danger btn-lg px-4">Delete</button>
+          
+          
+          
         </div>
       </div>
   
-      
-      
     </div>
     
   </div><!-- /.container -->

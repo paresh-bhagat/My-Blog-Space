@@ -57,7 +57,7 @@ public class UserDao {
 	
 	// get all tasks of a user
 
-	public List<String> get_all_blogs(String usr_name) {
+	public List<String> get_all_blogs_user(String usr_name) {
 		
 		List<String> result = new ArrayList<String>();
 		
