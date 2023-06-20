@@ -150,17 +150,9 @@ public class UserDao {
 	
 	// add a new blog
 	@Transactional
-	public void add_blog(String usr_name, String blog_name,String blog_details, String blog_date, 
-			String blog_topic ) throws ParseException {
+	public void add_blog(String usr_name, BlogList blog ) throws ParseException {
 		
 		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
-		
-		BlogList blog = new BlogList();
-		
-		blog.setBlog_name(blog_name);
-		blog.setBlog_topic(blog_topic);
-		blog.setBlog_details(blog_details);
-		blog.setBlog_date(new SimpleDateFormat("dd-MM-yyyy").parse(blog_date));
 		blog.setUser_info(temp);
 		
 		temp.add_blog(blog);
@@ -190,6 +182,34 @@ public class UserDao {
 				new SimpleDateFormat("dd-MM-yyyy").parse(blog_date));
 		
 		this.hibernateTemplate.update(temp);
+	}
+	
+	// get the id of the blog
+	
+	public String getBlogId(String user_id, String blog_name, String blog_topic)
+	{
+		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, user_id);
+		
+		List<BlogList> blog_list = temp.getBlogs();
+		
+		int i=0;
+		
+		System.out.print(blog_list.size());
+		
+		for(;i<blog_list.size();i++) {
+			
+			if( blog_list.get(i).getBlog_name().equals(blog_name) && blog_list.get(i).getBlog_topic().equals(blog_topic) )
+				break;
+			
+		}
+		
+		if(i>=blog_list.size())
+		{
+			System.out.print("something failed");
+			return "0";
+		}
+			
+		return Integer.toString(blog_list.get(i).getId());
 	}
 
 	public HibernateTemplate getHibernateTemplate() {

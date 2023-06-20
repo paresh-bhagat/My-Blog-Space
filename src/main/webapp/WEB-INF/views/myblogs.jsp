@@ -102,7 +102,9 @@
 
         </ul>
         
-        <a class="btn btn-outline-success" href="<c:url value="/newblog" />" role="button">New Blog</a>
+        <a class="btn btn-outline-success px-4" href="<c:url value="/newblog" />" role="button">New Blog</a>
+        
+        <a class="btn btn-outline-secondary px-4" href="<c:url value="/" />" role="button">LogOut</a>
         
       </div>
     </div>

@@ -29,9 +29,9 @@ public class BlogList {
 	
 	@Column(length=1000,name="Blog_Details")
 	private String blog_details;
-	
+
 	@Column(name="Blog_Date")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date blog_date;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

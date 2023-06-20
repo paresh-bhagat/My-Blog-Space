@@ -38,6 +38,7 @@
 
         <span class="navbar-toggler-icon"></span>
       </button>
+      
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
         
@@ -88,12 +89,16 @@
                 <label class="form-check-label" for="flexRadioDefault2">
                   radio3
                 </label>
-              </div></a></li>
+              </div>
+              </a>
+              </li>
 
             </ul>
           </li>
 
         </ul>
+        
+         <a class="btn btn-outline-secondary" href="<c:url value="/" />" role="button">LogOut</a>
         
       </div>
     </div>

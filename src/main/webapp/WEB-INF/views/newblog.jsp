@@ -46,7 +46,7 @@
           <li class="nav-item">${user_id}'s home</li>
           
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Home</a>
+            <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/myblogs" />">MyBlogs</a>
@@ -60,21 +60,43 @@
 
 <main>
 
-  <div class="container marketing">
+  	<div class="container marketing">
+  	
+  	<form action="processnewblogform" method="post" enctype="multipart/form-data">
 
-    <div class="mb-3 p-5">
-        <label for="exampleFormControlInput1" class="form-label">Title</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    <div class="mb-3 pt-5 pb-2">
+        <label 
+        for="exampleFormControlInput1" class="form-label">Title</label>
+        <input name="blog_title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name">
+    </div>
+    
+    <div class="mb-3 pb-2">
+      <label for="exampleFormControlInput1" class="form-label">Choose Topic</label>
+      <select class="form-select" aria-label="Default select example" 
+      name="blog_topic">
+        <option selected value="Other">Other</option>
+        <option value="Technology">Technology</option>
+        <option value="Movies">Movies</option>
+        <option value="Health">Health</option>
+        <option value="Food">Food</option>
+        <option value="Science">Science</option>
+        <option value="Music">Music</option>
+        <option value="Books">Books</option>
+        <option value="Travel">Travel</option>
+        <option value="Business">Business</option>
+        <option value="Politics">Politics</option>
+        <option value="Fashion">Fashion</option>
+      </select>
     </div>
 
-    <div class="mb-3 p-5">
+    <div class="mb-3 pb-2">
         <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="16"></textarea>
+        <textarea name="blog_content" class="form-control" id="exampleFormControlTextarea1" rows="16"></textarea>
     </div>
 
-    <div class="mb-3 p-5">
+    <div class="mb-3 pb-2">
         <label for="formFile" class="form-label">Choose image</label>
-        <input class="form-control" type="file" id="formFile">
+        <input name="blog_postimage" class="form-control" type="file" id="formFile">
     </div>
 
     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
@@ -83,8 +105,12 @@
             <button type="button" class="btn btn-succces btn-lg px-4">Back</button>
         </a>
         
-        <button type="button" class="btn btn-success btn-lg px-4" type="submit" >Post</button>
+        <button class="btn btn-warning btn-lg px-4" type="reset" >Reset</button>
+        <button class="btn btn-success btn-lg px-4" type="submit" >Post</button>
+        
     </div>
+    	
+    </form>
     
   </div>
 
