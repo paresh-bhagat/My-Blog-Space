@@ -9,9 +9,15 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;  
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 import com.MyBlogSpace.dao.UserDao;
 
 @Service
@@ -79,5 +85,68 @@ public class UserService {
 		
 		fos.close();
 	}
+	
+	public LinkedHashMap<String, List<List<String>>> sortMapUsingList(List<BlogList> blog_list){
+		
+		
+		HashMap<String,List<List<String>>> map = new HashMap<String,List<List<String>>>();
+		
+		map.put("Other",new ArrayList<List<String>>() );
+		map.put("Technology",new ArrayList<List<String>>() );
+		map.put("Movies",new ArrayList<List<String>>() );
+		map.put("Health",new ArrayList<List<String>>() );
+		map.put("Food",new ArrayList<List<String>>() );
+		map.put("Science",new ArrayList<List<String>>() );
+		map.put("Music",new ArrayList<List<String>>() );
+		map.put("Books",new ArrayList<List<String>>() );
+		map.put("Travel",new ArrayList<List<String>>() );
+		map.put("Business",new ArrayList<List<String>>() );
+		map.put("Politics",new ArrayList<List<String>>() );
+		map.put("Fashion",new ArrayList<List<String>>() );
+		
+		SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
+		
+		for (int i = 0; i < blog_list.size(); i++) {
+			
+			List<String> temp = new ArrayList<String>();
+			
+			temp.add( Integer.toString(blog_list.get(i).getId()));
+			temp.add(blog_list.get(i).getBlog_name());
+			temp.add(blog_list.get(i).getUser_info().getUser_id());
+			temp.add(formatDate.format(blog_list.get(i).getBlog_date()));
+			
+			map.get(blog_list.get(i).getBlog_topic()).add(temp);
+        }
+		
+		System.out.println(map);
+		
+		Comparator<List<List<String>>> bylistsize = 
+	        		(List<List<String>> l1, List<List<String>> l2) -> Integer.compare(l1.size(),l2.size());
+	        		
+	    LinkedHashMap<String, List<List<String>>> sortedMap = map.entrySet()
+	    		.stream()
+	    		.sorted(Map.Entry.<String, List<List<String>>>comparingByValue(bylistsize.reversed()))
+	    		.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
-}
+	    System.out.println(sortedMap);
+
+		return sortedMap;
+		
+	}
+	
+	public LinkedHashMap<String, List<List<String>>> getAllBlogdetails() {
+		
+		List<BlogList> temp = this.userdao.get_all_blogs();
+		
+		return sortMapUsingList(temp);
+	}
+	
+	public LinkedHashMap<String, List<List<String>>> getUserBlogdetails(String user_id) {
+		
+		List<BlogList> temp = this.userdao.get_all_blogs_user(user_id);
+		
+		return sortMapUsingList(temp);
+	}
+		
+	}
+

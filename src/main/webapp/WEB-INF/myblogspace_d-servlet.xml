@@ -56,17 +56,23 @@
 		</property>
 	</bean>
 	
-	<!-- HibernateTemplate object -->
+	<!-- HibernateTemplate object not used since depreciated
 	
 	<bean class="org.springframework.orm.hibernate5.HibernateTemplate" name="hibernateTemplate"> 
 		<property name="sessionFactory" ref="factory"></property>
 	</bean>
+	 -->
 	
 	<!-- transaction manager object -->
 	
 	<bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" name="transactionManager"> 
 		<property name="sessionFactory" ref="factory"></property>
 	</bean>
+	
+	
+	<bean name="userdao" class="com.MyBlogSpace.dao.UserDao">
+    	<property name="sessionFactory" ref="factory" />
+ 	</bean>
 	
 	<!-- common multipart resolver -->
 	<bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

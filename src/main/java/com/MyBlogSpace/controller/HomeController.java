@@ -1,9 +1,6 @@
 package com.MyBlogSpace.controller;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,11 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.MyBlogSpace.model.BlogList;
-import com.MyBlogSpace.model.UserInfo;
 import com.MyBlogSpace.service.UserService;
 
 @Scope("session")
@@ -58,7 +52,10 @@ public class HomeController {
         	user_id = this.user_id;
         	model.addAttribute("user_id", user_id);
         }
-        	
+        
+        LinkedHashMap<String, List<List<String>>> all_blog_details = this.userservice.getAllBlogdetails();
+        
+        model.addAttribute("blogs", all_blog_details);
         
         System.out.println(user_id);
        

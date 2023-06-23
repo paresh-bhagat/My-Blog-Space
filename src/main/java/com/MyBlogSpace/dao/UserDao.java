@@ -5,25 +5,32 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.MyBlogSpace.model.UserInfo;
 import com.MyBlogSpace.model.BlogList;
 
+@Transactional
 @Repository
 public class UserDao {
 	
-	@Autowired
-	private HibernateTemplate hibernateTemplate;
+    private SessionFactory sessionFactory;
+	
+    //setSessionFactory
+    
+    public void setSessionFactory(SessionFactory sessionFactory){
+        this.sessionFactory=sessionFactory;
+    }
 	
 	//check if userid is present
 	
 	public int check_userid(String userid) {
 		
-		UserInfo usr_info = this.hibernateTemplate.get(UserInfo.class, userid);
+		
+		Session session=this.sessionFactory.getCurrentSession();
+		UserInfo usr_info = session.get(UserInfo.class, userid);
 		
 		if(usr_info == null)
 			return 0;
@@ -35,14 +42,16 @@ public class UserDao {
 	@Transactional
 	public void add_new_account(UserInfo user) {
 		
-		this.hibernateTemplate.save(user);
+		Session session = this.sessionFactory.getCurrentSession();
+		session.save(user);
 	}
 	
 	// get user password of a user
 
 	public String get_userpassword(String usr_id) {
 		
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_id);
+		Session session = this.sessionFactory.getCurrentSession();
+		UserInfo temp =  session.get(UserInfo.class, usr_id);
 		return temp.getUser_password();
 	}
 	
@@ -50,41 +59,51 @@ public class UserDao {
 	@Transactional
 	public void change_password(String passwordTyped, String usr_name) {
 		
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
+		Session session = this.sessionFactory.getCurrentSession();
+		UserInfo temp =  session.get(UserInfo.class, usr_name);
 		temp.setUser_password(passwordTyped);
-		this.hibernateTemplate.update(temp); 
+		session.update(temp);
 	}
 	
-	// get all tasks of a user
+	// get all blogs of a user
 
-	public List<String> get_all_blogs_user(String usr_name) {
+	public List<BlogList> get_all_blogs_user(String usr_name) {
 		
-		List<String> result = new ArrayList<String>();
+		Session session = this.sessionFactory.getCurrentSession();
+		UserInfo temp =  session.get(UserInfo.class, usr_name);
 		
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
-		
-		for(BlogList t:temp.getBlogs())
-			result.add(t.getBlog_name());
-		
-		return result;
+		return temp.getBlogs();
 	}
 	
-	// remove user and all tasks
+	// get all blogs for home
+	
+	public List<BlogList> get_all_blogs() {
+		
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		return session.createQuery("SELECT a FROM BlogList a", BlogList.class).getResultList();
+		
+	}
+	
+	// remove user and all blogs
 	@Transactional
 	public void remove_user(String usr_name) {
 		
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
+		Session session = this.sessionFactory.getCurrentSession();
+		UserInfo temp = session.get(UserInfo.class, usr_name);
 		
-		this.hibernateTemplate.delete(temp);
+		session.delete(temp);
 	}
 	
 	// get all details of a blog
 	
 	public List<String> get_blog_details(String usr_name, String task) {
 		
+		Session session = this.sessionFactory.getCurrentSession();
+		
 		List<String> result = new ArrayList<String>();
 		
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
+		UserInfo temp = session.get(UserInfo.class, usr_name);
 		List<BlogList> tasks_list = temp.getBlogs();
 		
 		int i=0;
@@ -109,7 +128,9 @@ public class UserDao {
 	@Transactional
 	public void delete_blog(String usr_name, String task) {
 		
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		UserInfo temp = session.get(UserInfo.class, usr_name);
 		
 		List<BlogList> tasks_list = temp.getBlogs();
 		
@@ -124,14 +145,16 @@ public class UserDao {
 		
 		temp.remove_blog(i);
 		
-		this.hibernateTemplate.update(temp);
+		session.update(temp);
 	}
 	
 	//check if a task exist
 
 	public int check_blog_exist(String usr_name, String new_task) {
 		
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		UserInfo temp = session.get(UserInfo.class, usr_name);
 		List<BlogList> tasks_list = temp.getBlogs();
 		
 		int ans = 0;
@@ -152,20 +175,24 @@ public class UserDao {
 	@Transactional
 	public void add_blog(String usr_name, BlogList blog ) throws ParseException {
 		
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		UserInfo temp = session.get(UserInfo.class, usr_name);
 		blog.setUser_info(temp);
 		
 		temp.add_blog(blog);
 		
-		this.hibernateTemplate.update(temp);
+		session.update(temp);
 	}
 	
 	// update a task
 	@Transactional
 	public void update_blog(String usr_name, String new_blog_name, String blog_details, String blog_date, 
 			String blog_topic, String old_blog) throws ParseException {
-				
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, usr_name);
+		
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		UserInfo temp = session.get(UserInfo.class, usr_name);
 		
 		List<BlogList> blog_list = temp.getBlogs();
 		
@@ -181,14 +208,16 @@ public class UserDao {
 		temp.update_blog(i, new_blog_name, blog_details, blog_topic, 
 				new SimpleDateFormat("dd-MM-yyyy").parse(blog_date));
 		
-		this.hibernateTemplate.update(temp);
+		session.update(temp);
 	}
 	
 	// get the id of the blog
 	
-	public String getBlogId(String user_id, String blog_name, String blog_topic)
-	{
-		UserInfo temp = this.hibernateTemplate.get(UserInfo.class, user_id);
+	public String getBlogId(String user_id, String blog_name, String blog_topic){
+		
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		UserInfo temp = session.get(UserInfo.class, user_id);
 		
 		List<BlogList> blog_list = temp.getBlogs();
 		
@@ -210,14 +239,6 @@ public class UserDao {
 		}
 			
 		return Integer.toString(blog_list.get(i).getId());
-	}
-
-	public HibernateTemplate getHibernateTemplate() {
-		return hibernateTemplate;
-	}
-
-	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-		this.hibernateTemplate = hibernateTemplate;
 	}
 
 }

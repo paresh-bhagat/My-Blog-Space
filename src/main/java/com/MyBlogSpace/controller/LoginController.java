@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,8 +88,7 @@ public class LoginController {
 	@RequestMapping(path="/error", method = RequestMethod.GET)
 	public String errorPage() {
 		System.out.print("error page");
-		return "errorpage";
-		
+		return "errorpage";	
 	}
 	
 }
