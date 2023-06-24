@@ -75,7 +75,7 @@ public class UserService {
 		
 		FileOutputStream fos;
 		
-		String imagepath =  path + "resources" + File.separator + "blog_images" + File.separator + num + ".jpg";
+		String imagepath =  path + "resources" + File.separator + "images" + File.separator + num + ".jpg";
 		
 		System.out.print(imagepath);
 		

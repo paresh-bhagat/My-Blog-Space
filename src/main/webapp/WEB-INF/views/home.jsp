@@ -165,19 +165,28 @@
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
     		
     	<!-- for loop for blogs  -->
-    	
-    	  <c:forEach items="${entry.value}" var="blog">
+    	<c:if test="${empty entry.value}">
+    		<p class="lead"> Oops! No blogs found at the moment</p>
+    	</c:if>
+    
+    	<!-- collection is not empty below if condition will be executed -->
+    	<c:if test="${not empty entry.value}">
+    		<c:forEach items="${entry.value}" var="blog">
     	  
           <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" 
-            style="background-image: url('<c:url value="/resources/blog_images/"/><c:out value="${blog[0]}"/>');">
-              
+          
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+             style="background-image: url('<c:url value="/resources/images/${blog[0]}.jpg"/>');">
+        
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><c:out value="${blog[1]}"/></h3>
                 <ul class="d-flex list-unstyled mt-auto">
+                  <!--
                   <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
+                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" 
+                    class="rounded-circle border border-white">
+                  </li>  
+                  -->
                   <li class="d-flex align-items-center me-3">
                     <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
                     <small><c:out value="${blog[2]}"/></small>
@@ -192,7 +201,8 @@
           </div>
           
           </c:forEach>
-    
+    	</c:if>
+    	  
         </div>
       </div>
       

@@ -79,11 +79,9 @@
     	<property name="maxUploadSize" value="20848820" />
   	</bean>
 	
-	<mvc:resources mapping="/resources/**" location="/resources/"  
-	cache-period="31556926"/>
+	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="31556926"/>
 	
-	<mvc:resources mapping="/WEB-INF/views/**" location="/WEB-INF/views/"
-	cache-period="31556926"/>
+	<mvc:resources mapping="/WEB-INF/views/**" location="/WEB-INF/views/" cache-period="31556926"/>
 	
 	<mvc:annotation-driven />
 	

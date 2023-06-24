@@ -70,32 +70,25 @@
                     All topics
                   </label>
                 </div>
-
-              </a></li>
+				</a>
+			  </li>
+			  
+			  <!-- divider -->
 
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">
+              
+              <c:forEach items="${blogs}" var="entry"> 
+			
+              <li>
+              	<a class="dropdown-item" href="#">
                 <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" value="first" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  radio1
-                </label>
+                	<input class="form-check-input" type="radio" name="flexRadioDefault" value="${entry.key}" id="flexRadioDefault1">
+                	<label class="form-check-label" for="flexRadioDefault1">${entry.key}</label>
                 </div>
-              </a></li>
+              	</a>
+              </li>
 
-              <li><a class="dropdown-item" href="#"><div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" value="second" id="flexRadioDefault2">
-                <label class="form-check-label" for="flexRadioDefault2">
-                  radio2
-                </label>
-              </div></a></li>
-
-              <li><a class="dropdown-item" href="#"><div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" value="third" id="flexRadioDefault2">
-                <label class="form-check-label" for="flexRadioDefault2">
-                  radio3
-                </label>
-              </div></a></li>
+           </c:forEach>
 
             </ul>
           </li>
@@ -115,237 +108,65 @@
 
   <div class="container marketing">
 
-
-    <!--section1-->
-
-    <section id="section1" class="section first box">
+	<!-- for loop for each section -->
+	
+	<c:forEach items="${blogs}" var="entry">        
+            
+      <section id="section1" class="section ${entry.key} box">
 
       <div class="container py-5" id="custom-cards">
-        <h2 class="pb-2 border-bottom">Section1</h2>
+        <h2 class="pb-2 border-bottom">${entry.key}</h2>
     
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long jacket</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>Earth</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>3d</small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+    		
+    	<!-- for loop for blogs  -->
+    	<c:if test="${empty entry.value}">
+    		<p class="lead"> Oops! No blogs found at the moment</p>
+    	</c:if>
     
+    	<!-- collection is not empty below if condition will be executed -->
+    	<c:if test="${not empty entry.value}">
+    		<c:forEach items="${entry.value}" var="blog">
+    	  
           <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-2.jpg');">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" 
+            style="background-image: url('<c:url value="/resources/images/${blog[0]}.jpg"/>');">
+              
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Much longer title that wraps to multiple lines</h3>
+                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><c:out value="${blog[1]}"/></h3>
                 <ul class="d-flex list-unstyled mt-auto">
                   <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" 
+                    class="rounded-circle border border-white">
                   </li>
                   <li class="d-flex align-items-center me-3">
                     <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>Pakistan</small>
+                    <small><c:out value="${blog[2]}"/></small>
                   </li>
                   <li class="d-flex align-items-center">
                     <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>4d</small>
+                    <small><c:out value="${blog[3]}"/></small>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-    
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Another longer title belongs here</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>California</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>5d</small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          
+          </c:forEach>
+    	</c:if>
+    	  
         </div>
       </div>
       
       
     </section>
+            
+    </c:forEach>
+    <!--section1--> 
 
-    <!-- End projects Section -->
-
-    <!-- *********************** 2nd section*******************-->
-    
-    <section id="section2" class="section second box">
-
-      <div class="container py-5" id="custom-cards">
-        <h2 class="pb-2 border-bottom">Section2</h2>
-    
-        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long jacket</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>Earth</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>3d</small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-    
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-2.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Much longer title that wraps to multiple lines</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>Pakistan</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>4d</small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-    
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Another longer title belongs here</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>California</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>5d</small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      
-    </section>
-
-
-    <section id="section3" class="section third box">
-
-      <div class="container py-5" id="custom-cards">
-        <h2 class="pb-2 border-bottom">Section3</h2>
-    
-        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long jacket</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>Earth</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>3d</small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-    
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-2.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Much longer title that wraps to multiple lines</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>Pakistan</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>4d</small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-    
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Another longer title belongs here</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>California</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>5d</small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      
-    </section>
-    
-  </div><!-- /.container -->
+  </div>
+  
+  <!-- /.container -->
 
 
   <!-- FOOTER -->

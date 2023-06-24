@@ -67,6 +67,11 @@ public class HomeController {
 		System.out.print("myblogs page");
 		System.out.print(this.user_id);
 		model.addAttribute("user_id", user_id);
+		
+		LinkedHashMap<String, List<List<String>>> user_blog_details = this.userservice.getUserBlogdetails(user_id);
+        
+        model.addAttribute("blogs", user_blog_details);
+        
 		return "myblogs";
 	}
 	
