@@ -2,7 +2,6 @@ package com.MyBlogSpace.dao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -28,7 +27,6 @@ public class UserDao {
 	
 	public int check_userid(String userid) {
 		
-		
 		Session session=this.sessionFactory.getCurrentSession();
 		UserInfo usr_info = session.get(UserInfo.class, userid);
 		
@@ -39,6 +37,7 @@ public class UserDao {
 	}
 	
 	//add a new account
+	
 	@Transactional
 	public void add_new_account(UserInfo user) {
 		
@@ -56,6 +55,7 @@ public class UserDao {
 	}
 	
 	// change password of a user
+	
 	@Transactional
 	public void change_password(String passwordTyped, String usr_name) {
 		
@@ -86,6 +86,7 @@ public class UserDao {
 	}
 	
 	// remove user and all blogs
+	
 	@Transactional
 	public void remove_user(String usr_name) {
 		
@@ -97,48 +98,43 @@ public class UserDao {
 	
 	// get all details of a blog
 	
-	public List<String> get_blog_details(String usr_name, String task) {
+	public BlogList get_blog_details(String usr_name, String blog_name, String blog_topic) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
-		List<String> result = new ArrayList<String>();
-		
 		UserInfo temp = session.get(UserInfo.class, usr_name);
-		List<BlogList> tasks_list = temp.getBlogs();
+		List<BlogList> blogs_list = temp.getBlogs();
 		
 		int i=0;
 		
-		for(;i<tasks_list.size();i++) {
+		for(;i<blogs_list.size();i++) {
 			
-			if(tasks_list.get(i).getBlog_name().equals(task))
+			if( blogs_list.get(i).getBlog_name().equals(blog_name) && 
+					blogs_list.get(i).getBlog_topic().equals(blog_topic) )
 				break;
 			
 		}
 		
-		SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-		
-		result.add( tasks_list.get(i).getBlog_details() );
-		result.add( formatDate.format(tasks_list.get(i).getBlog_date()) );
-		result.add( tasks_list.get(i).getBlog_topic() );
-		
-		return result;
+		return blogs_list.get(i);
 	}
 	
 	//delete a task
+	
 	@Transactional
-	public void delete_blog(String usr_name, String task) {
+	public void delete_blog(String user_id, String blog_name, String blog_topic) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
-		UserInfo temp = session.get(UserInfo.class, usr_name);
+		UserInfo temp = session.get(UserInfo.class, user_id);
 		
-		List<BlogList> tasks_list = temp.getBlogs();
+		List<BlogList> blogs_list = temp.getBlogs();
 		
 		int i=0;
 		
-		for(;i<tasks_list.size();i++) {
+		for(;i<blogs_list.size();i++) {
 			
-			if(tasks_list.get(i).getBlog_name().equals(task))
+			if( blogs_list.get(i).getBlog_name().equals(blog_name) &&  
+					blogs_list.get(i).getBlog_topic().equals(blog_topic) )
 				break;
 			
 		}
@@ -185,7 +181,8 @@ public class UserDao {
 		session.update(temp);
 	}
 	
-	// update a task
+	// update a blog
+	
 	@Transactional
 	public void update_blog(String usr_name, String new_blog_name, String blog_details, String blog_date, 
 			String blog_topic, String old_blog) throws ParseException {

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;  
 import java.util.Date;
 import java.util.List;
@@ -86,6 +88,8 @@ public class UserService {
 		fos.close();
 	}
 	
+	// this is used for sorting blog details to be shown to user in feed
+	
 	public LinkedHashMap<String, List<List<String>>> sortMapUsingList(List<BlogList> blog_list){
 		
 		
@@ -146,6 +150,67 @@ public class UserService {
 		List<BlogList> temp = this.userdao.get_all_blogs_user(user_id);
 		
 		return sortMapUsingList(temp);
+	}
+
+	public List<String> getblogdetails(String user_id, String blog_name, String blog_topic) {
+		
+		BlogList temp = this.userdao.get_blog_details(user_id,blog_name,blog_topic);
+		
+		List<String> result = new ArrayList<String>();
+		
+		SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
+		
+		result.add( Integer.toString(temp.getId()) );
+		result.add( blog_name );
+		result.add( blog_topic );
+		result.add( temp.getBlog_details() );
+		result.add( user_id );
+		result.add( formatDate.format(temp.getBlog_date()) );
+		return result;
+	}
+	
+	// update blog
+	
+	public void updateblog(String user_id, String blog_name, String blog_topic, 
+			String blog_content, CommonsMultipartFile file, String path) throws Exception {
+		
+		BlogList temp = new BlogList();
+		
+		temp.setBlog_name(blog_name);
+		temp.setBlog_topic(blog_topic);
+		temp.setBlog_details(blog_content);
+		
+		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");  
+	    Date date = new Date();
+	    
+	    temp.setBlog_date(date);
+		
+		this.userdao.add_blog(user_id, temp);
+		
+		String num = this.userdao.getBlogId(user_id,blog_name,blog_topic);
+		// convert imgae to byte data
+		
+		byte[] data = file.getBytes();
+		
+		FileOutputStream fos;
+		
+		String imagepath =  path + "resources" + File.separator + "images" + File.separator + num + ".jpg";
+		
+		System.out.print(imagepath);
+		
+		fos = new FileOutputStream(imagepath);
+		
+		fos.write(data);
+		
+		fos.close();
+	}
+	
+	//delete blog
+	
+	public void deleteblog(String user_id, String blog_name, String blog_topic) {
+		
+		this.deleteblog(user_id, blog_name, blog_topic);
+		
 	}
 		
 	}

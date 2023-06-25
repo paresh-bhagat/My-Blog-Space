@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <!-- jstl tag -->
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -40,6 +40,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
+      
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
         
           <li class="nav-item">${user_id}'s home</li>
@@ -47,11 +48,9 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
           </li>
-          
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/myblogs" />">MyBlogs</a>
           </li>
-          
         </ul>
         
       </div>
@@ -61,21 +60,43 @@
 
 <main>
 
-  <div class="container marketing">
+  	<div class="container marketing">
+  	
+  	<form action="processupdateblogform" method="post" enctype="multipart/form-data">
 
-    <div class="mb-3 p-5">
-        <label for="exampleFormControlInput1" class="form-label">Title</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    <div class="mb-3 pt-5 pb-2">
+        <label 
+        for="exampleFormControlInput1" class="form-label">Title</label>
+        <input name="blog_title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name">
+    </div>
+    
+    <div class="mb-3 pb-2">
+      <label for="exampleFormControlInput1" class="form-label">Choose Topic</label>
+      <select class="form-select" aria-label="Default select example" 
+      name="blog_topic">
+        <option selected value="Other">Other</option>
+        <option value="Technology">Technology</option>
+        <option value="Movies">Movies</option>
+        <option value="Health">Health</option>
+        <option value="Food">Food</option>
+        <option value="Science">Science</option>
+        <option value="Music">Music</option>
+        <option value="Books">Books</option>
+        <option value="Travel">Travel</option>
+        <option value="Business">Business</option>
+        <option value="Politics">Politics</option>
+        <option value="Fashion">Fashion</option>
+      </select>
     </div>
 
-    <div class="mb-3 p-5">
+    <div class="mb-3 pb-2">
         <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="16"></textarea>
+        <textarea name="blog_content" class="form-control" id="exampleFormControlTextarea1" rows="16"></textarea>
     </div>
 
-    <div class="mb-3 p-5">
+    <div class="mb-3 pb-2">
         <label for="formFile" class="form-label">Choose image</label>
-        <input class="form-control" type="file" id="formFile">
+        <input name="blog_postimage" class="form-control" type="file" id="formFile">
     </div>
 
     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
@@ -84,9 +105,13 @@
             <button type="button" class="btn btn-succces btn-lg px-4">Back</button>
         </a>
         
-        <button type="button" class="btn btn-success btn-lg px-4" type="submit" >Update</button>
+        <button class="btn btn-warning btn-lg px-4" type="reset" >Reset</button>
+        
+        <button class="btn btn-success btn-lg px-4" type="submit" >Update</button>
         
     </div>
+    	
+    </form>
     
   </div>
 
@@ -94,6 +119,7 @@
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
  integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+ 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
       
  </body>

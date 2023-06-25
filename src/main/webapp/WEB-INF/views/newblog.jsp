@@ -106,6 +106,7 @@
         </a>
         
         <button class="btn btn-warning btn-lg px-4" type="reset" >Reset</button>
+        
         <button class="btn btn-success btn-lg px-4" type="submit" >Post</button>
         
     </div>

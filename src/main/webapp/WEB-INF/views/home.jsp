@@ -171,34 +171,43 @@
     
     	<!-- collection is not empty below if condition will be executed -->
     	<c:if test="${not empty entry.value}">
-    		<c:forEach items="${entry.value}" var="blog">
+    	  <c:forEach items="${entry.value}" var="blog">
     	  
-          <div class="col">
-          
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-             style="background-image: url('<c:url value="/resources/images/${blog[0]}.jpg"/>');">
-        
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><c:out value="${blog[1]}"/></h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <!--
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" 
-                    class="rounded-circle border border-white">
-                  </li>  
-                  -->
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small><c:out value="${blog[2]}"/></small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small><c:out value="${blog[3]}"/></small>
-                  </li>
-                </ul>
+           <div class="col">
+              <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" 
+                xmlns="http://www.w3.org/2000/svg" role="img" 
+                aria-label="Placeholder: Thumbnail" 
+                preserveAspectRatio="xMidYMid slice" 
+                focusable="false"><title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#55595c"></rect>
+                
+                <image 
+      				width="100%" 
+      				height="225" 
+      				xlink:href="<c:url value="/resources/images/${blog[0]}.jpg"/>"
+      				clip-path="url(#circleView)"
+    			/>
+    			
+                </svg>
+                
+                <div class="card-body">
+                  <h5 class="card-title"><c:out value="${blog[1]}"/></h5>
+                  <p class="card-text fst-italic">by <c:out value="${blog[2]}"/></p>
+                  
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    
+                    <a href="<c:url value="/viewblog?blog_user_id=${blog[2]}&blog_name=${blog[1]}&blog_topic=${entry.key}" />">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    </a>
+                    <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->     
+                    </div>
+                    <small class="text-body-secondary"><c:out value="${blog[3]}"/></small>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+           </div>
           
           </c:forEach>
     	</c:if>

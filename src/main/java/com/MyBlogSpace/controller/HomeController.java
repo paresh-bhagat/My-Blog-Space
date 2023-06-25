@@ -28,6 +28,8 @@ public class HomeController {
 
 	private String user_id;
 	
+	// handler for feed
+	
 	@RequestMapping(path="/feed",method = RequestMethod.GET)
 	public String feed(HttpServletRequest request, Model model) {
 		
@@ -62,6 +64,8 @@ public class HomeController {
         return "home";
 	}
 	
+	// see all my blogs
+	
 	@RequestMapping(path="/myblogs",method = RequestMethod.GET)
 	public String myBlogs(Model model) {
 		System.out.print("myblogs page");
@@ -75,17 +79,70 @@ public class HomeController {
 		return "myblogs";
 	}
 	
+	// view a blog
+	
 	@RequestMapping(path="/viewblog",method = RequestMethod.GET)
-	public String viewBlog(Model model) {
+	public String viewBlog(@RequestParam String blog_user_id,
+			@RequestParam String blog_name,
+		    @RequestParam String blog_topic, Model model) {
+		
+		List<String> temp = this.userservice.getblogdetails(blog_user_id,blog_name,blog_topic);
+		model.addAttribute("blog", temp);
+		
 		System.out.print("timeline page");
 		return "blogview";
 	}
 	
+	// edit a blog
+	
 	@RequestMapping(path="/editblog",method = RequestMethod.GET)
-	public String editBlog(Model model) {
+	public String editBlog(@RequestParam String blog_user_id,
+			@RequestParam String blog_name,
+		    @RequestParam String blog_topic, Model model) {
 		System.out.print("edit page");
-		return "blogedit";
+		return "return:/myblogs";
 	}
+	
+	// update a blog
+	
+	@RequestMapping(path="/processupdateblogform",method = RequestMethod.POST)
+	public String updateBlog(@RequestParam("blog_title") String title, 
+			@RequestParam("blog_topic") String topic,
+			@RequestParam("blog_content") String content, 
+			@RequestParam("blog_postimage") CommonsMultipartFile file,
+			HttpSession s) throws Exception {
+		
+		System.out.print("edit page");
+		
+		if( ( title==null || title.length()==0 ) || ( content==null || content.length()==0 ) )
+		{
+			System.out.print("title or content wrong");
+			return "";
+		}
+		
+		String path = s.getServletContext().getRealPath("/");
+		
+		this.userservice.updateblog(user_id, title, topic, content, file, path);
+		
+		System.out.print(user_id);
+		return "redirect:/myblogs";
+		
+	}
+	
+	// delete a blog
+	
+	@RequestMapping(path="/deleteblog",method = RequestMethod.GET)
+	public String deleteBlog(@RequestParam String blog_user_id,
+			@RequestParam String blog_name,
+		    @RequestParam String blog_topic, Model model) {
+		System.out.print("delet blog page");
+		
+		this.userservice.deleteblog(blog_user_id, blog_name, blog_topic);
+		
+		return "return:/myblogs";
+	}
+	
+	// create a new blog
 	
 	@RequestMapping(path="/newblog",method = RequestMethod.GET)
 	public String newBlog(Model model) {
@@ -93,6 +150,8 @@ public class HomeController {
 		System.out.print(this.user_id);
 		return "newblog";
 	}
+	
+	// process new blog form action
 	
 	@RequestMapping(path="/processnewblogform", method=RequestMethod.POST)
 	public String handleNewBlogForm(@RequestParam("blog_title") String title, 

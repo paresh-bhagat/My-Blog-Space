@@ -62,47 +62,27 @@
   <div class="container marketing">
 
     <div class="px-4 pt-5 my-5">
-      <h1 class="display-4 fw-bold text-body-emphasis text-center">Centered screenshot</h1>
+      <h1 class="display-4 fw-bold text-body-emphasis text-center">${blog[1]}</h1>
       <div class="container px-5 text-center">
-        <img src="<c:url value="/resources/images/home.jpg" />" class="img-fluid border rounded-3 shadow-lg mb-4"
+        <img src="<c:url value="/resources/images/${blog[0]}.jpg"/>" class="img-fluid border rounded-3 shadow-lg mb-4"
           alt="Example image" width="700" height="500" loading="lazy">
       </div>
       <div class="col-12 mx-auto">
-        <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, 
-          the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, 
-          responsive grid system, extensive prebuilt components, and powerful JavaScript Lorem ipsum dolor sit amet 
-          consectetur adipisicing elit. 
-          At excepturi odio quia delectus dolores? Nesciunt neque id sed, sequi quo voluptatibus, 
-          labore fugit consequatur exercitationem, pariatur magnam vero qui dolore! Lorem ipsum dolor sit amet
-           consectetur, adipisicing elit. Error ad suscipit minima quisquam labore totam modi veritatis sit 
-           asperiores aut vel esse beatae unde velit deleniti incidunt nemo adipisci amet repudiandae reiciendis, 
-           dolor blanditiis numquam! Laborum esse quae enim praesentium quibusdam amet dignissimos molestiae dolorem 
-           ipsam, optio cupiditate asperiores fugit ab quod excepturi accusamus tenetur tempore fugiat sapiente. Sit
-           qui delectus quo perspiciatis doloribus laudantium dolor ab exercitationem aliquam necessitatibus alias 
-           vitae impedit officiis ducimus deleniti autem modi rem, ea dolore at doloremque praesentium. Consectetur 
-           laboriosam nobis provident soluta, quae excepturi 
-          accusantium nemo, perferendis a vel deserunt suscipit. Totam, saepe! Lorem ipsum dolor sit amet, 
-          consectetur adipisicing elit. Delectus ad expedita libero illum nobis, cum minus! Ex natus minima
-           porro debitis, amet asperiores fuga dolorem sapiente corporis illo quam excepturi culpa earum atque 
-           fugit officiis delectus velit ipsum quia molestiae consequatur? Odio fugiat architecto, nisi voluptatum 
-           at id quae reiciendis excepturi velit voluptate ipsam placeat vitae aperiam, in aliquid. Praesentium, 
-           voluptates fugit reiciendis iusto nulla dolores quos officia neque illum quas alias in perspiciatis 
-           quaerat cum asperiores tenetur tempora possimus dolore facilis! Non officia doloribus sequi architecto 
-           mollitia maxime dolorum consectetur, a 
-          laboriosam praesentium in accusamus pariatur iusto voluptates eaque.</p>
-          
+        <p class="lead mb-4">${blog[3]}</p>
           
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-        
-          <button type="button" class="btn btn-danger btn-lg px-4">Back</button>
-        	
-          <a href="<c:url value="/editblog" />"> 
+          
+          <a href="<c:url value="/myblogs" />">
+          	<button type="button" class="btn btn-danger btn-lg px-4">Back</button>
+          </a>
+          	
+          <a href="<c:url value="/editblog?blog_user_id=${blog[2]}&blog_name=${blog[1]}&blog_topic=${entry.key}" />"> 
             <button type="button" class="btn btn-info btn-lg px-4">Edit blog</button>
           </a>
           
-          <button type="button" class="btn btn-danger btn-lg px-4">Delete</button>
-          
-          
+          <a href="<c:url value="/deleteblog?blog_user_id=${blog[2]}&blog_name=${blog[1]}&blog_topic=${entry.key}" />">
+            <button type="button" class="btn btn-danger btn-lg px-4">Delete</button>
+          </a>
           
         </div>
       </div>
