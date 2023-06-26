@@ -135,11 +135,15 @@ public class HomeController {
 	public String deleteBlog(@RequestParam String blog_user_id,
 			@RequestParam String blog_name,
 		    @RequestParam String blog_topic, Model model) {
-		System.out.print("delet blog page");
+		
+		System.out.println("delete blog page");
+		System.out.println(blog_user_id);
+		System.out.println(blog_name);
+		System.out.println(blog_topic);
 		
 		this.userservice.deleteblog(blog_user_id, blog_name, blog_topic);
 		
-		return "return:/myblogs";
+		return "redirect:/myblogs";
 	}
 	
 	// create a new blog

@@ -3,14 +3,13 @@ package com.MyBlogSpace.service;
 import com.MyBlogSpace.model.UserInfo;
 import com.MyBlogSpace.model.BlogList;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;  
 import java.util.Date;
 import java.util.List;
@@ -166,6 +165,7 @@ public class UserService {
 		result.add( temp.getBlog_details() );
 		result.add( user_id );
 		result.add( formatDate.format(temp.getBlog_date()) );
+		
 		return result;
 	}
 	
@@ -209,9 +209,14 @@ public class UserService {
 	
 	public void deleteblog(String user_id, String blog_name, String blog_topic) {
 		
-		this.deleteblog(user_id, blog_name, blog_topic);
+		this.userdao.delete_blog(user_id, blog_name, blog_topic);
+		
+		// after deleting blog delete file
+		
+		File fileToDelete = FileUtils.getFile("src/test/resources/fileToDelete_commonsIo.txt");
+	    boolean success = FileUtils.deleteQuietly(fileToDelete);
 		
 	}
 		
-	}
+}
 
