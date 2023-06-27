@@ -67,7 +67,7 @@
     <div class="mb-3 pt-5 pb-2">
         <label 
         for="exampleFormControlInput1" class="form-label">Title</label>
-        <input name="blog_title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name">
+        <input name="blog_title" type="text" class="form-control" id="exampleFormControlInput1">
     </div>
     
     <div class="mb-3 pb-2">

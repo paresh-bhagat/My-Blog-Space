@@ -41,15 +41,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        
-          <li class="nav-item">${user_id}'s home</li>
+          
+           <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">${user_id}'s home</a>
+           </li>
           
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/myblogs" />">MyBlogs</a>
           </li>
+          
         </ul>
         
       </div>
@@ -62,13 +66,13 @@
   <div class="container marketing">
 
     <div class="px-4 pt-5 my-5">
-      <h1 class="display-4 fw-bold text-body-emphasis text-center">${blog[1]}</h1>
+      <h1 class="display-4 fw-bold text-body-emphasis text-center"><c:out value="${blog[1]}"/></h1>
       <div class="container px-5 text-center">
         <img src="<c:url value="/resources/images/${blog[0]}.jpg"/>" class="img-fluid border rounded-3 shadow-lg mb-4"
           alt="Example image" width="700" height="500" loading="lazy">
       </div>
       <div class="col-12 mx-auto">
-        <p class="lead mb-4">${blog[3]}</p>
+        <p class="lead mb-4"><c:out value="${blog[3]}"/></p>
           
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
           

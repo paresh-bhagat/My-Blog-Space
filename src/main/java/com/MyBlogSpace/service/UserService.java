@@ -172,37 +172,48 @@ public class UserService {
 	// update blog
 	
 	public void updateblog(String user_id, String blog_name, String blog_topic, 
-			String blog_content, CommonsMultipartFile file, String path) throws Exception {
-		
-		BlogList temp = new BlogList();
-		
-		temp.setBlog_name(blog_name);
-		temp.setBlog_topic(blog_topic);
-		temp.setBlog_details(blog_content);
+			String blog_content, CommonsMultipartFile file, String path, 
+			String old_blog_name,String old_blog_topic) throws Exception {
 		
 		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");  
 	    Date date = new Date();
-	    
-	    temp.setBlog_date(date);
 		
-		this.userdao.add_blog(user_id, temp);
+		this.userdao.update_blog(user_id, blog_name, blog_topic, blog_content, date, 
+				old_blog_name, old_blog_topic);
 		
 		String num = this.userdao.getBlogId(user_id,blog_name,blog_topic);
-		// convert imgae to byte data
 		
-		byte[] data = file.getBytes();
-		
-		FileOutputStream fos;
-		
-		String imagepath =  path + "resources" + File.separator + "images" + File.separator + num + ".jpg";
-		
-		System.out.print(imagepath);
-		
-		fos = new FileOutputStream(imagepath);
-		
-		fos.write(data);
-		
-		fos.close();
+		if ( file==null || file.isEmpty()==true )
+		{
+			System.out.print("image not changed");
+		}
+		else
+		{
+			
+			// first delete previous image
+			
+			String imagepath =  path + "resources" + File.separator + "images" + File.separator + num + ".jpg";
+			
+			File fileToDelete = FileUtils.getFile(imagepath);
+			
+		    boolean success = FileUtils.deleteQuietly(fileToDelete);
+		    
+		    if(success==false)
+		    	System.out.println("file not deleted");
+		    
+		    // save new image
+		    
+		    byte[] data = file.getBytes();
+		    
+		    FileOutputStream fos;
+		    
+		    System.out.print(imagepath);
+		    fos = new FileOutputStream(imagepath);
+			
+			fos.write(data);
+			
+			fos.close();
+		}
 	}
 	
 	//delete blog

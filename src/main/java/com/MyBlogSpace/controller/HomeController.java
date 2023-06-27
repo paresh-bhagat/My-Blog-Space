@@ -70,11 +70,12 @@ public class HomeController {
 	public String myBlogs(Model model) {
 		System.out.print("myblogs page");
 		System.out.print(this.user_id);
-		model.addAttribute("user_id", user_id);
+		
 		
 		LinkedHashMap<String, List<List<String>>> user_blog_details = this.userservice.getUserBlogdetails(user_id);
         
         model.addAttribute("blogs", user_blog_details);
+        model.addAttribute("user_id", this.user_id);
         
 		return "myblogs";
 	}
@@ -87,7 +88,9 @@ public class HomeController {
 		    @RequestParam String blog_topic, Model model) {
 		
 		List<String> temp = this.userservice.getblogdetails(blog_user_id,blog_name,blog_topic);
+		
 		model.addAttribute("blog", temp);
+		model.addAttribute("user_id", this.user_id);
 		
 		System.out.print("timeline page");
 		return "blogview";
@@ -99,14 +102,23 @@ public class HomeController {
 	public String editBlog(@RequestParam String blog_user_id,
 			@RequestParam String blog_name,
 		    @RequestParam String blog_topic, Model model) {
+		
 		System.out.print("edit page");
-		return "return:/myblogs";
+		List<String> temp = this.userservice.getblogdetails(blog_user_id, blog_name, blog_topic);
+		
+		model.addAttribute("user_id", this.user_id);
+		model.addAttribute("blog", temp);
+		
+		return "blogedit";
 	}
 	
 	// update a blog
 	
 	@RequestMapping(path="/processupdateblogform",method = RequestMethod.POST)
-	public String updateBlog(@RequestParam("blog_title") String title, 
+	public String updateBlog(@RequestParam String blog_user_id,
+			@RequestParam String old_blog_name,
+			@RequestParam String old_blog_topic,
+			@RequestParam("blog_title") String title, 
 			@RequestParam("blog_topic") String topic,
 			@RequestParam("blog_content") String content, 
 			@RequestParam("blog_postimage") CommonsMultipartFile file,
@@ -122,7 +134,8 @@ public class HomeController {
 		
 		String path = s.getServletContext().getRealPath("/");
 		
-		this.userservice.updateblog(user_id, title, topic, content, file, path);
+		this.userservice.updateblog(blog_user_id, title, topic, content, file, path,
+				old_blog_name, old_blog_topic);
 		
 		System.out.print(user_id);
 		return "redirect:/myblogs";
@@ -176,7 +189,7 @@ public class HomeController {
 			return "";
 		}
 		
-		if ( file==null ||file.getSize()==0 )
+		if ( file==null || file.isEmpty()==true )
 		{
 			System.out.print("image wrong");
 			return "";

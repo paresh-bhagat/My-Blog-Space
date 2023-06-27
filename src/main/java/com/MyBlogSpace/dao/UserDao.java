@@ -2,6 +2,7 @@ package com.MyBlogSpace.dao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -184,8 +185,8 @@ public class UserDao {
 	// update a blog
 	
 	@Transactional
-	public void update_blog(String usr_name, String new_blog_name, String blog_details, String blog_date, 
-			String blog_topic, String old_blog) throws ParseException {
+	public void update_blog(String usr_name, String blog_name, String blog_topic,String blog_details, Date blog_date, 
+			 String old_blog_name , String old_blog_topic) throws ParseException {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
@@ -197,13 +198,13 @@ public class UserDao {
 		
 		for(;i<blog_list.size();i++) {
 			
-			if(blog_list.get(i).getBlog_name().equals(old_blog))
+			if(blog_list.get(i).getBlog_name().equals(old_blog_name) && 
+					blog_list.get(i).getBlog_topic().equals(old_blog_topic))
 				break;
 			
 		}
 		
-		temp.update_blog(i, new_blog_name, blog_details, blog_topic, 
-				new SimpleDateFormat("dd-MM-yyyy").parse(blog_date));
+		temp.update_blog(i, blog_name, blog_topic, blog_details, blog_date);
 		
 		session.update(temp);
 	}

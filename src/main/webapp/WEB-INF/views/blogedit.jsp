@@ -43,14 +43,18 @@
       
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
         
-          <li class="nav-item">${user_id}'s home</li>
+           <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">${user_id}'s home</a>
+           </li>
           
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/myblogs" />">MyBlogs</a>
           </li>
+          
         </ul>
         
       </div>
@@ -62,18 +66,21 @@
 
   	<div class="container marketing">
   	
-  	<form action="processupdateblogform" method="post" enctype="multipart/form-data">
+  	<form action="processupdateblogform?blog_user_id=${blog[4]}&old_blog_name=${blog[1]}&old_blog_topic=${blog[2]}"
+  	method="post" enctype="multipart/form-data">
 
     <div class="mb-3 pt-5 pb-2">
         <label 
         for="exampleFormControlInput1" class="form-label">Title</label>
-        <input name="blog_title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name">
+        <input name="blog_title" type="text" class="form-control" id="exampleFormControlInput1" 
+        value="<c:out value="${blog[1]}"/>">
     </div>
     
     <div class="mb-3 pb-2">
       <label for="exampleFormControlInput1" class="form-label">Choose Topic</label>
       <select class="form-select" aria-label="Default select example" 
-      name="blog_topic">
+      name="blog_topic" value="<c:out value="${blog[2]}"/>">
+      
         <option selected value="Other">Other</option>
         <option value="Technology">Technology</option>
         <option value="Movies">Movies</option>
@@ -91,7 +98,9 @@
 
     <div class="mb-3 pb-2">
         <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-        <textarea name="blog_content" class="form-control" id="exampleFormControlTextarea1" rows="16"></textarea>
+        <textarea name="blog_content" class="form-control" id="exampleFormControlTextarea1" 
+        rows="16" value="<c:out value="${blog[3]}"/>">
+        </textarea>
     </div>
 
     <div class="mb-3 pb-2">

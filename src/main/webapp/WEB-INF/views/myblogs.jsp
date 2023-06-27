@@ -47,8 +47,6 @@
                 <a class="nav-link" aria-current="page" href="#">${user_id}'s home</a>
            </li>
            
-           <li class="nav-item"></li>
-           
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
           </li>

@@ -76,7 +76,7 @@ public class UserInfo {
 	}
 	
 	// update blog
-	public void update_blog(int i, String new_blog_name, String blog_details, String blog_topic, Date blog_date ) {
+	public void update_blog(int i, String new_blog_name, String blog_topic,String blog_details,Date blog_date ) {
 		this.blogs.get(i).setBlog_name(new_blog_name);
 		this.blogs.get(i).setBlog_details(blog_details);
 		this.blogs.get(i).setBlog_topic(blog_topic);
