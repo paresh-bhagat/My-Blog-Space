@@ -207,14 +207,24 @@ public class UserService {
 	
 	//delete blog
 	
-	public void deleteblog(String user_id, String blog_name, String blog_topic) {
+	public void deleteblog(String user_id, String blog_name, String blog_topic, String path) {
+		
+		// get id of blog 
+		
+		String num = this.userdao.getBlogId(user_id,blog_name,blog_topic);
 		
 		this.userdao.delete_blog(user_id, blog_name, blog_topic);
 		
 		// after deleting blog delete file
 		
-		File fileToDelete = FileUtils.getFile("src/test/resources/fileToDelete_commonsIo.txt");
+		String imagepath =  path + "resources" + File.separator + "images" + File.separator + num + ".jpg";
+		
+		File fileToDelete = FileUtils.getFile(imagepath);
+		
 	    boolean success = FileUtils.deleteQuietly(fileToDelete);
+	    
+	    if(success==false)
+	    	System.out.println("file not deleted");
 		
 	}
 		

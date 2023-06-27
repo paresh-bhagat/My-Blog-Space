@@ -134,14 +134,18 @@ public class HomeController {
 	@RequestMapping(path="/deleteblog",method = RequestMethod.GET)
 	public String deleteBlog(@RequestParam String blog_user_id,
 			@RequestParam String blog_name,
-		    @RequestParam String blog_topic, Model model) {
+		    @RequestParam String blog_topic, 
+		    HttpSession s,
+		    Model model) {
 		
 		System.out.println("delete blog page");
 		System.out.println(blog_user_id);
 		System.out.println(blog_name);
 		System.out.println(blog_topic);
 		
-		this.userservice.deleteblog(blog_user_id, blog_name, blog_topic);
+		String path = s.getServletContext().getRealPath("/");
+		
+		this.userservice.deleteblog(blog_user_id, blog_name, blog_topic, path);
 		
 		return "redirect:/myblogs";
 	}
