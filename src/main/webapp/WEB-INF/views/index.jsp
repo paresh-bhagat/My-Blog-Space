@@ -35,10 +35,6 @@
                 <header class="mb-auto">
                   <div class="text-white">
 
-                    <!--<span class="float-md-start bg-dark-2 rounded-pill p-2 mb-lg-1 d-none d-lg-inline-block">
-                      <img class="img-fluid rounded-pill d-block" src="images/logo.png" alt="logo">
-                    </span>-->
-
                     <h3 class="float-md-start mb-0">MyBlogSpace</h3>
                       <nav class="nav nav-masthead justify-content-center float-md-end">
                         <a class="nav-link fw-bold py-1 px-0" href="<c:url value="/login" /> ">Login</a>
