@@ -36,26 +36,25 @@
                   <div class="text-white">
 
                     <h3 class="float-md-start mb-0">MyBlogSpace</h3>
-                      <nav class="nav nav-masthead justify-content-center float-md-end">
-                        <a class="nav-link fw-bold py-1 px-0" href="<c:url value="/login" /> ">Login</a>
-                        <a class="nav-link fw-bold py-1 px-0" href="<c:url value="/SignUp" />">Signup</a>
-                        
-                      </nav>
+                      
                   </div>
                 </header>
           
                 <main class="px-3 text-white">
                   <h1>Share your ideas</h1>
+                  
                   <p class="lead">Cover is a one-page template for building simple and beautiful home pages. 
                   Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-                  <p class="lead">
-                    <a href="<c:url value="/SignUp" />" class="btn btn-lg btn-light fw-bold border-white bg-white">Signup</a>
+                  
+                  <p class="lead m-1">
+                    <a href="<c:url value="/login" />" class="btn btn-lg btn-secondary fw-bold mx-2">Login</a>
+                    <a href="<c:url value="/SignUp" />" class="btn btn-lg btn-light fw-bold border-white bg-white mx-2">Signup</a>
                   </p>
+                  
                 </main>
           
                 <footer class="mt-auto text-white-50">
-                  <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by 
-                  <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
+                  <p>Thanks to <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>.</p>
                 </footer>
               </div>
         

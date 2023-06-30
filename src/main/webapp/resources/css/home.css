@@ -55,6 +55,12 @@ body {
  .featurette-heading {
     letter-spacing: -.05rem;
  }
+ 
+ /* decrease brightness of image */
+ 
+ .filtered {
+    filter: brightness(35%);
+ }
   
   /* rtl:end:remove */
   

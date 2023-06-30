@@ -27,7 +27,7 @@
     <main class="form-signin w-100 m-auto">
     
       <form action="processloginform" method="post">
-        <img class="mb-4" src="<c:url value="/resources/images/logo.png" />" alt="" width="170" height="140">
+        <img class="mb-4" src="<c:url value="/resources/images/logo.png" />" alt="" width="180" height="140">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     
         <div class="form-floating mb-3">

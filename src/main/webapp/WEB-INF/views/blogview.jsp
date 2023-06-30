@@ -66,31 +66,33 @@
   <div class="container marketing">
 
     <div class="px-4 pt-5 my-5">
-      <h1 class="display-4 fw-bold text-body-emphasis text-center"><c:out value="${blog[1]}"/></h1>
-      <div class="container px-5 text-center">
+      <h3 class="display-4 text-center pb-4"><c:out value="${blog[1]}"/></h3>
+      
+      <div class="container px-5 text-center pb-4">
         <img src="<c:url value="/resources/images/${blog[0]}.jpg"/>" class="img-fluid border rounded-3 shadow-lg mb-4"
-          alt="Example image" width="700" height="500" loading="lazy">
+          alt="Example image" width="700" height="700" loading="lazy">
       </div>
-      <div class="col-12 mx-auto">
-        <p class="lead mb-4"><c:out value="${blog[3]}"/></p>
-          
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+      
+		<div class="col-12 mx-auto border border-dark-subtle rounded-5 border-3">
+			<p class="lead mb-4 p-3"><c:out value="${blog[3]}"/></p>
+		</div>
+      
+		<div class="d-grid gap-3 d-flex justify-content-center m-5">
           
           <a href="<c:url value="/myblogs" />">
-          	<button type="button" class="btn btn-danger btn-lg px-4">Back</button>
+          	<button type="button" class="btn btn-outline-secondary btn-lg px-4">Back</button>
           </a>
           	
           <a href="<c:url value="/editblog?blog_user_id=${blog[4]}&blog_name=${blog[1]}&blog_topic=${blog[2]}" />"> 
-            <button type="button" class="btn btn-info btn-lg px-4">Edit blog</button>
+            <button type="button" class="btn btn-outline-info btn-lg px-4">Edit</button>
           </a>
           
           <a href="<c:url value="/deleteblog?blog_user_id=${blog[4]}&blog_name=${blog[1]}&blog_topic=${blog[2]}" />">
-            <button type="button" class="btn btn-danger btn-lg px-4">Delete</button>
+            <button type="button" class="btn btn-outline-danger btn-lg px-4">Delete</button>
           </a>
           
         </div>
-      </div>
-  
+        
     </div>
     
   </div><!-- /.container -->

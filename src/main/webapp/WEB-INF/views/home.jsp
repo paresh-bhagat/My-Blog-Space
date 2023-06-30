@@ -111,23 +111,23 @@
     <div class="carousel-inner">
     
       <div class="carousel-item active">
-        <img src="<c:url value="/resources/images/carousel1.jpg"/>" />
+        <img class="filtered" src="<c:url value="/resources/images/carousel1.jpg"/>" />
         <div class="container">
           <div class="carousel-caption">
             <h1>Get Started</h1>
             <p>Not sure what to write about? Choose a topic you know and love and start blogging</p>
-            <p><a class="btn btn-outline-primary btn-lg" href="<c:url value="/newblog" />">New Blog</a></p>
+            <p><a class="btn btn-success btn-lg" href="<c:url value="/newblog" />">New Blog</a></p>
           </div>
         </div>
       </div>
       
       <div class="carousel-item">
-        <img src="<c:url value="/resources/images/carousel2.jpg"/>" />
+        <img class="filtered" src="<c:url value="/resources/images/carousel2.jpg"/>" />
         <div class="container">
           <div class="carousel-caption text-start">
             <h1>Love the work</h1>
             <p>Check out the source code and my other projects</p>
-            <p><a class="btn btn-outline-primary btn-lg" href="https://github.com/paresh-bhagat">Go to Github</a></p>
+            <p><a class="btn btn-info btn-lg" href="https://github.com/paresh-bhagat">Go to Github</a></p>
           </div>
         </div>
       </div>
