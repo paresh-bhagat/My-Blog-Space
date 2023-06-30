@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.logout {
+    background: #6e6a6b;
+    transition: background-color 1ms ease-out 100ms
+  }
+  
+.logout:hover {
+    background-color: #211f20;
+}
+
+.deleteaccount {
+    background: #c37762;
+    transition: background-color 1ms ease-out 100ms
+}
+
+.deleteaccount:hover {
+    background-color: #b53d32;
+}

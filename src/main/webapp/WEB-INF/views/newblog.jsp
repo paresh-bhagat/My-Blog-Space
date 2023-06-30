@@ -34,7 +34,7 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="<c:url value="/" />">MyBlogSpace</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" 
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
       aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 
         <span class="navbar-toggler-icon"></span>
@@ -43,14 +43,18 @@
       
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
         
-          <li class="nav-item">${user_id}'s home</li>
-          
-          <li class="nav-item">
+         <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/myblogs" />">MyBlogs</a>
           </li>
+          
+           <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="<c:url value="/profile" />">Profile</a>
+           </li>
+          
         </ul>
         
       </div>

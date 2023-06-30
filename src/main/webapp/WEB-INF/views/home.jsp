@@ -28,8 +28,8 @@
   </head>
   <body>
     
-<header data-bs-theme="dark">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+	<header data-bs-theme="dark">
+  	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="<c:url value="/" />" >MyBlogSpace</a>
 
@@ -43,11 +43,15 @@
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
         
            <li class="nav-item">
-           		<a class="nav-link" aria-current="page" href="#">Welcome ${user_id}</a>
+           		<a class="nav-link active" aria-current="page" href="#">Feed</a>
            </li>
            
           <li class="nav-item">
           		<a class="nav-link" href="<c:url value="/myblogs" />">MyBlogs</a>
+          </li>
+          
+          <li class="nav-item">
+          		<a class="nav-link" href="<c:url value="/profile" />">Profile</a>
           </li>
           
 
@@ -91,14 +95,12 @@
 
         </ul>
         
-         <a class="btn btn-outline-secondary" href="<c:url value="/" />" role="button">LogOut</a>
-        
       </div>
     </div>
   </nav>
 </header>
 
-<main>
+	<main>
 
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">

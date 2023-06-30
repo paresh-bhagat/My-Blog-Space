@@ -238,6 +238,20 @@ public class UserService {
 	    	System.out.println("file not deleted");
 		
 	}
+	
+	// remove user and all blogs
+	
+	public void deleteAccount(String user_id) {
+		
+		this.userdao.remove_user(user_id);
+	}
+	
+	// get number of blogs by user
+	
+	public int getBlogNumber(String user_id) {
+		
+		return this.userdao.getBlogNumber(user_id);
+	}
 		
 }
 

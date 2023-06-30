@@ -203,5 +203,39 @@ public class HomeController {
 		return "redirect:/myblogs";
 		
 	}
+	
+	// profile
+	
+	@RequestMapping(path="/profile",method = RequestMethod.GET)
+	public String profile(Model model) {
+		System.out.print("myblogs page");
+		System.out.print(this.user_id);
+        
+		int blogs = this.userservice.getBlogNumber(this.user_id);
+        model.addAttribute("user_id", this.user_id);
+        model.addAttribute("blogs", blogs);
+        
+		return "profile";
+	}
+	
+	// logout
+	
+	@RequestMapping(path="/logout",method = RequestMethod.GET)
+	public String logout() {
+		System.out.print("logout page");
+		System.out.print(this.user_id);
+        
+		return "redirect:/";
+	}
+	
+	// delete
+	
+	@RequestMapping(path="/deleteaccount",method = RequestMethod.GET)
+	public String delete() {
+		System.out.print("logout page");
+		System.out.print(this.user_id);
+        this.userservice.deleteAccount(this.user_id);
+		return "redirect:/";
+	}
 
 }

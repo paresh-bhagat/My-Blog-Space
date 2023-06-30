@@ -1,10 +1,8 @@
 package com.MyBlogSpace.dao;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -237,6 +235,15 @@ public class UserDao {
 		}
 			
 		return Integer.toString(blog_list.get(i).getId());
+	}
+
+	// get number of blogs by a user
+	
+	public int getBlogNumber(String user_id) {
+		
+		Session session = this.sessionFactory.getCurrentSession();
+		UserInfo temp = session.get(UserInfo.class, user_id);
+		return temp.getBlogs().size();
 	}
 
 }

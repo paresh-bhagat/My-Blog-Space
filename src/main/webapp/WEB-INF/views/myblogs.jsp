@@ -44,16 +44,16 @@
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
            
            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">${user_id}'s home</a>
+            	<a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
            </li>
            
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
-          </li>
+           <li class="nav-item">
+            	<a class="nav-link active" aria-current="page" href="#">MyBlogs</a>
+           </li>
            
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">MyBlogs</a>
-          </li>
+           <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="<c:url value="/profile" />">Profile</a>
+           </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -94,8 +94,6 @@
         </ul>
         
         <a class="btn btn-outline-success px-4" href="<c:url value="/newblog" />" role="button">New Blog</a>
-        
-        <a class="btn btn-outline-secondary px-4" href="<c:url value="/" />" role="button">LogOut</a>
         
       </div>
     </div>

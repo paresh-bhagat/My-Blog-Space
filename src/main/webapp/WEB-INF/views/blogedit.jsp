@@ -29,8 +29,8 @@
   </head>
   <body>
     
-<header data-bs-theme="dark">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+	<header data-bs-theme="dark">
+  	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="<c:url value="/" />">MyBlogSpace</a>
 
@@ -43,10 +43,6 @@
       
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
         
-           <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">${user_id}'s home</a>
-           </li>
-          
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<c:url value="/feed" />">Feed</a>
           </li>
@@ -55,14 +51,18 @@
             <a class="nav-link" aria-current="page" href="<c:url value="/myblogs" />">MyBlogs</a>
           </li>
           
+           <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="<c:url value="/profile" />">Profile</a>
+           </li>
+          
         </ul>
         
       </div>
     </div>
-  </nav>
-</header>
+  	</nav>
+	</header>
 
-<main>
+	<main>
 
   	<div class="container marketing">
   	
