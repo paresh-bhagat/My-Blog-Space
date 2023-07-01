@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,8 +50,18 @@ public class LoginController {
 		
 	}
 	
+	@RequestMapping(path="/SignUpfail", method = RequestMethod.GET)
+	public String signUpfail(@RequestParam int error_type, Model model) {
+		System.out.print("signup fail page");
+		
+		model.addAttribute("error_type", error_type);
+		return "signupfail";
+		
+	}
+	
+	
 	@RequestMapping(path="/processloginform", method=RequestMethod.POST)
-	public String handleSignInForm(@RequestParam("user_id") String user_id, 
+	public String handleLogInForm(@RequestParam("user_id") String user_id, 
 			@RequestParam("user_password") String user_password, 
 			RedirectAttributes redirectAttributes) {
 		
@@ -67,9 +78,13 @@ public class LoginController {
 	
 	
 	@RequestMapping(path="/processsignupform", method=RequestMethod.POST)
-	public String handleRegisterForm(@RequestParam("user_id") String user_id, 
+	public String handleSignUpForm(@RequestParam("user_id") String user_id, 
 			@RequestParam("user_password") String user_password, 
 			RedirectAttributes redirectAttributes ) {
+		
+		
+		if( user_id==null || user_id.length()==0 || user_password==null || user_password.length()==0  )
+			return "redirect:/SignUpfail?error_type=0";
 		
 		UserInfo user = new UserInfo();
 		user.setUser_id(user_id);
@@ -82,9 +97,7 @@ public class LoginController {
 		boolean valid = userservice.addnewuser(user);
 		
 		if(valid==false)
-		{
-			return "";
-		}
+			return "redirect:/SignUpfail?error_type=1";
 		
 		redirectAttributes.addFlashAttribute("user_id",user_id );
 		

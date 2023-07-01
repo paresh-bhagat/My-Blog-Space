@@ -53,7 +53,7 @@
         </div>
         
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-  			Wrong username or password.
+  			Wrong username or password
   			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
         
