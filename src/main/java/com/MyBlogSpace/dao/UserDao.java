@@ -74,7 +74,7 @@ public class UserDao {
 		return temp.getBlogs();
 	}
 	
-	// get all blogs for home
+	// get all blogs for feed page
 	
 	public List<BlogList> get_all_blogs() {
 		
@@ -117,7 +117,7 @@ public class UserDao {
 		return blogs_list.get(i);
 	}
 	
-	//delete a task
+	// delete a blog
 	
 	@Transactional
 	public void delete_blog(String user_id, String blog_name, String blog_topic) {
@@ -143,7 +143,7 @@ public class UserDao {
 		session.update(temp);
 	}
 	
-	//check if a task exist
+	//check if a blog exist
 
 	public int check_blog_exist(String usr_name, String new_task) {
 		

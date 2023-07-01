@@ -4,6 +4,9 @@
 <!-- jstl tag -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!-- form tag -->
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,17 +21,17 @@
     crossorigin="anonymous">
 	
 	<!-- mycss -->
-    <link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet" >
+    <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet" >
 
   </head>
 
     <body class="text-center">
     
-    <main class="form-signin w-100 m-auto">
+    <main class="form-login w-100 m-auto">
     
       <form action="processloginform" method="post">
         <img class="mb-4" src="<c:url value="/resources/images/logo.png" />" alt="" width="180" height="140">
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 fw-normal">Please login</h1>
     
         <div class="form-floating mb-3">
           <input 
@@ -37,7 +40,7 @@
           id="floatingInput"
           name="user_id"
           placeholder="paresh">
-          <label for="floatingInput">UserName</label>
+          <label for="floatingInput">Username</label>
         </div>
         
         <div class="form-floating mb-3">
@@ -49,9 +52,13 @@
           <label for="floatingPassword">Password</label>
         </div>
         
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  			Wrong username or password.
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
         
-        <p class="mt-5 mb-3 text-body-secondary">&copy; 2023</p>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+        
       </form>
     </main>
 

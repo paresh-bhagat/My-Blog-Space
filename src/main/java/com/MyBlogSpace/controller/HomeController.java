@@ -61,7 +61,7 @@ public class HomeController {
         
         System.out.println(user_id);
        
-        return "home";
+        return "feed";
 	}
 	
 	// see all my blogs

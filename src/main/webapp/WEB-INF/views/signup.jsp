@@ -16,7 +16,7 @@
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
 	<!-- mycss -->
-    <link href="<c:url value="/resources/css/register.css" />" rel="stylesheet" >
+    <link href="<c:url value="/resources/css/signup.css" />" rel="stylesheet" >
 	
   </head>
     <body class="text-center">
@@ -33,7 +33,7 @@
           
                 <div class="modal-body p-5 pt-0">
                 
-                  <form class="" action="processregisterform" method="post" >
+                  <form class="" action="processsignupform" method="post" >
                   
                     <div class="form-floating mb-3">
                       <input type="text" 

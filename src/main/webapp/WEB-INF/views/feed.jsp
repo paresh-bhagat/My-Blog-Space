@@ -23,7 +23,7 @@
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     
      <!-- mycss -->
-    <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet" >
+    <link href="<c:url value="/resources/css/feed.css" />" rel="stylesheet" >
 
   </head>
   <body>
@@ -235,7 +235,7 @@ integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQS
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <!-- my js -->
-<script src="<c:url value="/resources/js/home.js" />"></script>
+<script src="<c:url value="/resources/js/feed.js" />"></script>
 
   </body>
 </html>

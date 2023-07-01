@@ -30,15 +30,22 @@ public class LoginController {
 	
 	@RequestMapping(path="/login", method = RequestMethod.GET)
 	public String login() {
-		System.out.print("signin page");
-		return "signin";
+		System.out.print("login page");
+		return "login";
+		
+	}
+	
+	@RequestMapping(path="/loginfail", method = RequestMethod.GET)
+	public String loginFail() {
+		System.out.print("login fail page");
+		return "loginfail";
 		
 	}
 	
 	@RequestMapping(path="/SignUp", method = RequestMethod.GET)
-	public String register() {
-		System.out.print("register page");
-		return "register";
+	public String signUp() {
+		System.out.print("signup page");
+		return "signup";
 		
 	}
 	
@@ -50,7 +57,7 @@ public class LoginController {
 		boolean exist = userservice.checkuser(user_id,user_password);
 		
 		if(exist==false)
-			return "";
+			return "redirect:/loginfail";
 		
 		redirectAttributes.addFlashAttribute("user_id",user_id );
 		
@@ -59,7 +66,7 @@ public class LoginController {
 		
 	
 	
-	@RequestMapping(path="/processregisterform", method=RequestMethod.POST)
+	@RequestMapping(path="/processsignupform", method=RequestMethod.POST)
 	public String handleRegisterForm(@RequestParam("user_id") String user_id, 
 			@RequestParam("user_password") String user_password, 
 			RedirectAttributes redirectAttributes ) {
