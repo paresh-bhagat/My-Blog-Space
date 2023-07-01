@@ -241,8 +241,27 @@ public class UserService {
 	
 	// remove user and all blogs
 	
-	public void deleteAccount(String user_id) {
+	public void deleteAccount(String user_id, String path) {
 		
+		// first delete all images
+		
+		List<BlogList> temp = this.userdao.get_all_blogs_user(user_id);
+		
+		for(int i=0 ; i<temp.size() ; i++)
+		{
+			
+			String imagepath =  path + "resources" + File.separator + "images" + File.separator + 
+					Integer.toString(temp.get(i).getId()) + ".jpg";
+			
+			File fileToDelete = FileUtils.getFile(imagepath);
+						
+			boolean success = FileUtils.deleteQuietly(fileToDelete);
+			
+			if(success==false)
+				System.out.println("unable to delete file something went wrong");
+		}
+		
+		// now delete account
 		this.userdao.remove_user(user_id);
 	}
 	

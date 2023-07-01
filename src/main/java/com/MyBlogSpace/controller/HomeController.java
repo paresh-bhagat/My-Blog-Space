@@ -256,10 +256,13 @@ public class HomeController {
 	// delete
 	
 	@RequestMapping(path="/deleteaccount",method = RequestMethod.GET)
-	public String delete() {
+	public String delete(HttpSession s) {
+		
 		System.out.print("logout page");
 		System.out.print(this.user_id);
-        this.userservice.deleteAccount(this.user_id);
+		String path = s.getServletContext().getRealPath("/");
+		
+        this.userservice.deleteAccount(this.user_id,path);
 		return "redirect:/";
 	}
 
