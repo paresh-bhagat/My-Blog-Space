@@ -69,18 +69,18 @@
   	<form action="processupdateblogform?blog_user_id=${blog[4]}&old_blog_name=${blog[1]}&old_blog_topic=${blog[2]}"
   	method="post" enctype="multipart/form-data">
 
-    <div class="mb-3 pt-5 pb-2">
+    <div class="mb-3 pt-5 pb-2 text-center">
         <label 
-        for="exampleFormControlInput1" class="form-label">Title</label>
+        for="exampleFormControlInput1" class="form-label fs-3">New title</label>
         <input name="blog_title" type="text" class="form-control" id="exampleFormControlInput1" 
         value="<c:out value="${blog[1]}"/>">
     </div>
     
-    <div class="mb-3 pb-2">
-      <label for="exampleFormControlInput1" class="form-label">Choose Topic</label>
-      <select class="form-select" aria-label="Default select example" 
-      name="blog_topic" value="<c:out value="${blog[2]}"/>">
+    <div class="mb-3 pb-2 text-center">
+      <label for="exampleFormControlInput1" class="form-label fs-3">Choose new topic</label>
+      <p class="fw-light">(previous <c:out value="${blog[2]}"/>)</p>
       
+      <select class="form-select" aria-label="Default select example" name="blog_topic">
         <option selected value="Other">Other</option>
         <option value="Technology">Technology</option>
         <option value="Movies">Movies</option>
@@ -96,15 +96,14 @@
       </select>
     </div>
 
-    <div class="mb-3 pb-2">
-        <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+    <div class="mb-3 pb-2 text-center">
+        <label for="exampleFormControlTextarea1" class="form-label fs-3">New content</label>
         <textarea name="blog_content" class="form-control" id="exampleFormControlTextarea1" 
-        rows="16" value="<c:out value="${blog[3]}"/>">
-        </textarea>
+        rows="16"><c:out value="${blog[3]}"/></textarea>
     </div>
 
-    <div class="mb-3 pb-2">
-        <label for="formFile" class="form-label">Choose image</label>
+    <div class="mb-3 pb-2 text-center">
+        <label for="formFile" class="form-label fs-3">Choose new image</label>
         <input name="blog_postimage" class="form-control" type="file" id="formFile">
     </div>
 
