@@ -112,6 +112,22 @@ public class HomeController {
 		return "blogedit";
 	}
 	
+	// edit a blog error
+	
+	@RequestMapping(path="/editblogerror",method = RequestMethod.GET)
+	public String editBlogError(@RequestParam String blog_user_id,
+			@RequestParam String blog_name,
+			@RequestParam String blog_topic, Model model) {
+			
+			System.out.print("edit page error");
+			List<String> temp = this.userservice.getblogdetails(blog_user_id, blog_name, blog_topic);
+			
+			model.addAttribute("user_id", this.user_id);
+			model.addAttribute("blog", temp);
+			
+			return "blogediterror";
+		}
+	
 	// update a blog
 	
 	@RequestMapping(path="/processupdateblogform",method = RequestMethod.POST)
@@ -129,14 +145,13 @@ public class HomeController {
 		if( ( title==null || title.length()==0 ) || ( content==null || content.length()==0 ) )
 		{
 			System.out.print("title or content wrong");
-			return "";
+			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + 
+					"&blog_name=" + old_blog_name + "&blog_topic=" + old_blog_topic;
 		}
 		
 		String path = s.getServletContext().getRealPath("/");
-		
 		this.userservice.updateblog(blog_user_id, title, topic, content, file, path,
 				old_blog_name, old_blog_topic);
-		
 		System.out.print(user_id);
 		return "redirect:/myblogs";
 		
@@ -183,16 +198,13 @@ public class HomeController {
 		
 		System.out.print("insid enew blog form");
 		
-		if( ( title==null || title.length()==0 ) || ( content==null || content.length()==0 ) )
-		{
-			System.out.print("tiltle or content wrong");
-			return "";
-		}
+		// title content not empty
 		
-		if ( file==null || file.isEmpty()==true )
+		if( ( title==null || title.length()==0 ) || ( content==null || content.length()==0 ) || 
+				( file==null || file.isEmpty()==true ))
 		{
-			System.out.print("image wrong");
-			return "";
+			System.out.print("title or content wrong");
+			return "redirect:/newblogerror?blog_title=" + title + "&blog_content=" + content;
 		}
 		
 		String path = s.getServletContext().getRealPath("/");
@@ -202,6 +214,19 @@ public class HomeController {
 		System.out.print(user_id);
 		return "redirect:/myblogs";
 		
+	}
+	
+	// new blog error
+	
+	@RequestMapping(path="/newblogerror",method = RequestMethod.GET)
+	public String newBlogError(@RequestParam String blog_title,
+			@RequestParam String blog_content,
+			Model model) {
+		System.out.print("new blog error page");
+		System.out.print(this.user_id);
+		model.addAttribute("blog_title", blog_title);
+		model.addAttribute("blog_content", blog_content);
+		return "newblogerror";
 	}
 	
 	// profile
