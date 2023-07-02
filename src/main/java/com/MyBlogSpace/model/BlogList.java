@@ -21,13 +21,13 @@ public class BlogList {
 	@Column(name="id")
 	private int id;
 	
-	@Column(length=60,name="Blog_Name")
+	@Column(length=70,name="Blog_Name")
 	private String blog_name;
 	
 	@Column(length=60,name="Blog_Topic")
 	private String blog_topic;
 	
-	@Column(length=1000,name="Blog_Details")
+	@Column(length=7500,name="Blog_Details")
 	private String blog_details;
 
 	@Column(name="Blog_Date")

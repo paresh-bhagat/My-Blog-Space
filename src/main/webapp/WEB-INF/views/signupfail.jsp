@@ -57,12 +57,19 @@
                     
                     <c:if test="${error_type == 0}">
     					<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  							Fields cannot be empty.
+  							Fields cannot be empty
   							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 						</div>
     				</c:if>
                     
                     <c:if test="${error_type == 1}">
+    					 <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  							Max 20 characters allowed
+  							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+    				</c:if>
+    				
+    				 <c:if test="${error_type == 2}">
     					 <div class="alert alert-danger alert-dismissible fade show" role="alert">
   							Username already exist
   							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -70,7 +77,6 @@
     				</c:if>
                     
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
-                    <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
                     
                   </form>
                 </div>

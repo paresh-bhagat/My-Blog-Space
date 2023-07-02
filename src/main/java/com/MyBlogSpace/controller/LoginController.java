@@ -37,8 +37,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping(path="/loginfail", method = RequestMethod.GET)
-	public String loginFail() {
+	public String loginFail(@RequestParam int error_type, Model model) {
 		System.out.print("login fail page");
+		model.addAttribute("error_type", error_type);
 		return "loginfail";
 		
 	}
@@ -61,14 +62,18 @@ public class LoginController {
 	
 	
 	@RequestMapping(path="/processloginform", method=RequestMethod.POST)
-	public String handleLogInForm(@RequestParam("user_id") String user_id, 
+	public String handleLogInForm(@RequestParam("user_id") String user_id,
 			@RequestParam("user_password") String user_password, 
 			RedirectAttributes redirectAttributes) {
+		
+		
+		if( user_id.length() > 20 || user_password.length() > 20 )
+			return "redirect:/loginfail?error_type=0";
 		
 		boolean exist = userservice.checkuser(user_id,user_password);
 		
 		if(exist==false)
-			return "redirect:/loginfail";
+			return "redirect:/loginfail?error_type=1";
 		
 		redirectAttributes.addFlashAttribute("user_id",user_id );
 		
@@ -86,6 +91,9 @@ public class LoginController {
 		if( user_id==null || user_id.length()==0 || user_password==null || user_password.length()==0  )
 			return "redirect:/SignUpfail?error_type=0";
 		
+		if( user_id.length() > 20 || user_password.length() > 20 )
+			return "redirect:/SignUpfail?error_type=1";
+		
 		UserInfo user = new UserInfo();
 		user.setUser_id(user_id);
 		user.setUser_password(user_password);
@@ -97,7 +105,7 @@ public class LoginController {
 		boolean valid = userservice.addnewuser(user);
 		
 		if(valid==false)
-			return "redirect:/SignUpfail?error_type=1";
+			return "redirect:/SignUpfail?error_type=2";
 		
 		redirectAttributes.addFlashAttribute("user_id",user_id );
 		

@@ -54,7 +54,6 @@
                     </div>
                     
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
-                    <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
                     
                   </form>
                 </div>

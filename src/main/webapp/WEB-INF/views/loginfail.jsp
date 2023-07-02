@@ -7,6 +7,8 @@
 <!-- form tag -->
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<%@ page isELIgnored = "false" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -52,11 +54,20 @@
           <label for="floatingPassword">Password</label>
         </div>
         
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-  			Wrong username or password
+        <c:if test="${error_type == 0}">
+    		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			 Max 20 characters allowed.
   			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
-        
+			</div>
+    	</c:if>
+                    
+        <c:if test="${error_type == 1}">
+    		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  			 Wrong username or password
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+    	</c:if>
+            
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
         
       </form>
