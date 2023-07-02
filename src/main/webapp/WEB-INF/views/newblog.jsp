@@ -100,6 +100,7 @@
 
     <div class="mb-3 pb-2 text-center">
         <label for="formFile" class="form-label fs-3">Choose image</label>
+        <p class="fw-light">(max. 5 MB)</p>
         <input name="blog_postimage" class="form-control" type="file" id="formFile">
     </div>
 

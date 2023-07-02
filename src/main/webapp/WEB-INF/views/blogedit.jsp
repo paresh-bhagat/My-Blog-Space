@@ -66,7 +66,7 @@
 
   	<div class="container marketing">
   	
-  	<form action="processupdateblogform?blog_user_id=${blog[4]}&old_blog_name=${blog[1]}&old_blog_topic=${blog[2]}"
+  	<form action="processupdateblogform?blog_user_id=${blog[4]}&old_blog_title=${blog[1]}&old_blog_topic=${blog[2]}"
   	method="post" enctype="multipart/form-data">
 
     <div class="mb-3 pt-5 pb-2 text-center">
@@ -104,6 +104,7 @@
 
     <div class="mb-3 pb-2 text-center">
         <label for="formFile" class="form-label fs-3">Choose new image</label>
+        <p class="fw-light">(max. 5 MB)</p>
         <input name="blog_postimage" class="form-control" type="file" id="formFile">
     </div>
 

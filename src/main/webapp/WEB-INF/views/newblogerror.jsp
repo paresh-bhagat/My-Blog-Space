@@ -75,6 +75,20 @@
         value="<c:out value="${blog_title}"/>">
     </div>
     
+    <c:if test="${error_type == 0}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Field cannot be empty
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
+    
+    <c:if test="${error_type == 1}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Max 60 characters allowed
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
+    
     <div class="mb-3 pb-2 text-center">
       <label for="exampleFormControlInput1" class="form-label fs-3">Choose topic</label>
       <select class="form-select" aria-label="Default select example" 
@@ -99,17 +113,48 @@
         <textarea name="blog_content" class="form-control" 
         id="exampleFormControlTextarea1" rows="16"><c:out value="${blog_content}"/></textarea>
     </div>
+    
+    <c:if test="${error_type == 2}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Field cannot be empty
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
+    
+    <c:if test="${error_type == 3}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Max 7500 characters allowed
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
 
     <div class="mb-3 pb-2 text-center">
         <label for="formFile" class="form-label fs-3">Choose image</label>
+        <p class="fw-light">(max. 5 MB)</p>
         <input name="blog_postimage" class="form-control" type="file" id="formFile">
     </div>
     
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  		Fields cannot be empty.
-  		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>
-
+    <c:if test="${error_type == 4}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Please upload an image
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
+    
+    <c:if test="${error_type == 5}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Max 5 MB files can be uploaded
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
+    
+   <c:if test="${error_type == 6}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			File not an image
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
+    
 	<!-- buttons -->
 	
     <div class="d-grid gap-3 d-flex justify-content-center m-5">

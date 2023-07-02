@@ -76,7 +76,7 @@
 	
 	<!-- common multipart resolver -->
 	<bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    	<property name="maxUploadSize" value="20848820" />
+    	<property name="maxUploadSize" value="10485760" />
   	</bean>
 	
 	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="31556926"/>

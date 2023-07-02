@@ -66,7 +66,7 @@
 
   	<div class="container marketing">
   	
-  	<form action="processupdateblogform?blog_user_id=${blog[4]}&old_blog_name=${blog[1]}&old_blog_topic=${blog[2]}"
+  	<form action="processupdateblogform?blog_user_id=${blog[4]}&old_blog_title=${blog[1]}&old_blog_topic=${blog[2]}"
   	method="post" enctype="multipart/form-data">
 
     <div class="mb-3 pt-5 pb-2 text-center">
@@ -75,6 +75,20 @@
         <input name="blog_title" type="text" class="form-control" id="exampleFormControlInput1" 
         value="<c:out value="${blog[1]}"/>">
     </div>
+    
+    <c:if test="${error_type == 0}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Field cannot be empty
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
+    
+    <c:if test="${error_type == 1}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Max 60 characters allowed
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
     
     <div class="mb-3 pb-2 text-center">
       <label for="exampleFormControlInput1" class="form-label fs-3">Choose new topic</label>
@@ -101,16 +115,40 @@
         <textarea name="blog_content" class="form-control" id="exampleFormControlTextarea1" 
         rows="16"><c:out value="${blog[3]}"/></textarea>
     </div>
+    
+    <c:if test="${error_type == 2}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Field cannot be empty
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
+    
+    <c:if test="${error_type == 3}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Max 7500 characters allowed
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
 
     <div class="mb-3 pb-2 text-center">
         <label for="formFile" class="form-label fs-3">Choose new image</label>
+        <p class="fw-light">(max. 5 MB)</p>
         <input name="blog_postimage" class="form-control" type="file" id="formFile">
     </div>
     
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  		Fields cannot be empty.
-  		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>
+    <c:if test="${error_type == 4}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			Max 5 MB files can be uploaded
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
+    
+   <c:if test="${error_type == 5}">
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  			File not an image
+  			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+    </c:if>
 
     <div class="d-grid gap-3 d-flex justify-content-center m-5">
     

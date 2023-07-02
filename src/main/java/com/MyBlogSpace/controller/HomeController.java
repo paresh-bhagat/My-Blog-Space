@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.MyBlogSpace.service.UserService;
@@ -116,14 +117,16 @@ public class HomeController {
 	
 	@RequestMapping(path="/editblogerror",method = RequestMethod.GET)
 	public String editBlogError(@RequestParam String blog_user_id,
-			@RequestParam String blog_name,
-			@RequestParam String blog_topic, Model model) {
+			@RequestParam String blog_title,
+			@RequestParam String blog_topic, 
+			@RequestParam int error_type, Model model) {
 			
 			System.out.print("edit page error");
-			List<String> temp = this.userservice.getblogdetails(blog_user_id, blog_name, blog_topic);
+			List<String> temp = this.userservice.getblogdetails(blog_user_id, blog_title, blog_topic);
 			
 			model.addAttribute("user_id", this.user_id);
 			model.addAttribute("blog", temp);
+			model.addAttribute("error_type", error_type);
 			
 			return "blogediterror";
 		}
@@ -132,7 +135,7 @@ public class HomeController {
 	
 	@RequestMapping(path="/processupdateblogform",method = RequestMethod.POST)
 	public String updateBlog(@RequestParam String blog_user_id,
-			@RequestParam String old_blog_name,
+			@RequestParam String old_blog_title,
 			@RequestParam String old_blog_topic,
 			@RequestParam("blog_title") String title, 
 			@RequestParam("blog_topic") String topic,
@@ -142,17 +145,49 @@ public class HomeController {
 		
 		System.out.print("edit page");
 		
-		if( ( title==null || title.length()==0 ) || ( content==null || content.length()==0 ) )
+		
+		if( title==null || title.length()==0 )
 		{
-			System.out.print("title or content wrong");
-			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + 
-					"&blog_name=" + old_blog_name + "&blog_topic=" + old_blog_topic;
+			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title 
+					+ "&blog_topic=" + old_blog_topic + "&error_type=0";
+		}
+			
+		if(title.length()>60)
+		{
+			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title 
+					+ "&blog_topic=" + old_blog_topic + "&error_type=1";
+		}
+			
+		if( content==null || content.length()==0 )
+		{
+			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title
+					+ "&blog_topic=" + old_blog_topic + "&error_type=2";
+		}
+				
+		if(content.length()>7500)
+		{
+			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title
+					+ "&blog_topic=" + old_blog_topic + "&error_type=3";
+		}
+			
+		if( file!=null && file.isEmpty()==false && file.getSize() > 5242880 )
+		{
+			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title
+					+ "&blog_topic=" + old_blog_topic + "&error_type=4";
+		}
+			
+		if( file!=null && file.isEmpty()==false && file.getContentType().contains("image")==false )
+		{
+			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title
+					+ "&blog_topic=" + old_blog_topic + "&error_type=5";
 		}
 		
 		String path = s.getServletContext().getRealPath("/");
+		
 		this.userservice.updateblog(blog_user_id, title, topic, content, file, path,
-				old_blog_name, old_blog_topic);
+				old_blog_title, old_blog_topic);
 		System.out.print(user_id);
+		
 		return "redirect:/myblogs";
 		
 	}
@@ -194,38 +229,92 @@ public class HomeController {
 			@RequestParam("blog_topic") String topic,
 			@RequestParam("blog_content") String content, 
 			@RequestParam("blog_postimage") CommonsMultipartFile file,
-			HttpSession s) throws Exception {
+			HttpSession s,
+			RedirectAttributes redirectAttributes) throws Exception {
 		
 		System.out.print("insid enew blog form");
 		
 		// title content not empty
 		
-		if( ( title==null || title.length()==0 ) || ( content==null || content.length()==0 ) || 
-				( file==null || file.isEmpty()==true ))
+		if( title==null || title.length()==0 )
 		{
-			System.out.print("title or content wrong");
-			return "redirect:/newblogerror?blog_title=" + title + "&blog_content=" + content;
+			redirectAttributes.addFlashAttribute("blog_title",title );
+			redirectAttributes.addFlashAttribute("blog_content",content );
+			return "redirect:/newblogerror?error_type=0";
+		}
+			
+		if(title.length()>60)
+		{
+			redirectAttributes.addFlashAttribute("blog_title",title );
+			redirectAttributes.addFlashAttribute("blog_content",content );
+			return "redirect:/newblogerror?error_type=1";
+		}
+			
+		if( content==null || content.length()==0 )
+		{
+			redirectAttributes.addFlashAttribute("blog_title",title );
+			redirectAttributes.addFlashAttribute("blog_content",content );
+			return "redirect:/newblogerror?error_type=2";
+		}
+				
+		if(content.length()>7500)
+		{
+			redirectAttributes.addFlashAttribute("blog_title",title );
+			redirectAttributes.addFlashAttribute("blog_content",content );
+			return "redirect:/newblogerror?error_type=3";
+		}
+			
+		if( file==null || file.isEmpty()==true )
+		{
+			redirectAttributes.addFlashAttribute("blog_title",title );
+			redirectAttributes.addFlashAttribute("blog_content",content );
+			return "redirect:/newblogerror?error_type=4";
+		}
+			
+		if(file.getSize() > 5242880)
+		{
+			redirectAttributes.addFlashAttribute("blog_title",title );
+			redirectAttributes.addFlashAttribute("blog_content",content );
+			return "redirect:/newblogerror?error_type=5";
+		}
+			
+		
+		if( file.getContentType().contains("image")==false )
+		{
+			redirectAttributes.addFlashAttribute("blog_title",title );
+			redirectAttributes.addFlashAttribute("blog_content",content );
+			return "redirect:/newblogerror?error_type=6";
 		}
 		
 		String path = s.getServletContext().getRealPath("/");
-		
 		this.userservice.addNewBlog(this.user_id,title,topic,content,file,path);
-		
 		System.out.print(user_id);
 		return "redirect:/myblogs";
-		
 	}
 	
 	// new blog error
 	
 	@RequestMapping(path="/newblogerror",method = RequestMethod.GET)
-	public String newBlogError(@RequestParam String blog_title,
-			@RequestParam String blog_content,
+	public String newBlogError(HttpServletRequest request,
+			@RequestParam int error_type,
 			Model model) {
 		System.out.print("new blog error page");
 		System.out.print(this.user_id);
+		
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		
+		String blog_title="";
+		String blog_content="";
+        
+        if(flashMap != null)
+        {
+        	blog_title = (String) flashMap.get("blog_title");
+        	blog_content = (String) flashMap.get("blog_content");
+        	
+        }
 		model.addAttribute("blog_title", blog_title);
 		model.addAttribute("blog_content", blog_content);
+		model.addAttribute("error_type", error_type);
 		return "newblogerror";
 	}
 	
