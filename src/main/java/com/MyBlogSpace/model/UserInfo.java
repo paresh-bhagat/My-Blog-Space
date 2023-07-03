@@ -75,13 +75,6 @@ public class UserInfo {
 		this.blogs.remove(i);
 	}
 	
-	// update blog
-	public void update_blog(int i, String new_blog_title, String blog_topic,String blog_content,Date blog_date ) {
-		this.blogs.get(i).setBlog_title(new_blog_title);
-		this.blogs.get(i).setBlog_content(blog_content);
-		this.blogs.get(i).setBlog_topic(blog_topic);
-		this.blogs.get(i).setBlog_date(blog_date);
-	}
 
 	@Override
 	public String toString() {

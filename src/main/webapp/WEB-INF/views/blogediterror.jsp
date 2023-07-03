@@ -66,7 +66,7 @@
 
   	<div class="container marketing">
   	
-  	<form action="processupdateblogform?blog_user_name=${blog[4]}&old_blog_title=${blog[1]}&old_blog_topic=${blog[2]}"
+  	<form action="processupdateblogform?blog_id=${blog[0]}"
   	method="post" enctype="multipart/form-data">
 
     <div class="mb-3 pt-5 pb-2 text-center">

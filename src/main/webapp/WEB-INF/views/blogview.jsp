@@ -66,7 +66,8 @@
   <div class="container marketing">
 
     <div class="px-4 pt-5 my-5">
-      <h3 class="display-4 text-center pb-4"><c:out value="${blog[1]}"/></h3>
+      <h3 class="display-4 text-center pb-1"><c:out value="${blog[1]}"/></h3>
+       <p class="fw-light text-center pb-3">by Pari,in Technology, 12-90-3458</p>
       
       <div class="container px-5 text-center pb-4">
         <img src="<c:url value="/resources/images/${blog[0]}.jpg"/>" class="img-fluid border rounded-3 shadow-lg mb-4"
@@ -83,11 +84,11 @@
           	<button type="button" class="btn btn-outline-secondary btn-lg px-4">Back</button>
           </a>
           	
-          <a href="<c:url value="/editblog?blog_user_name=${blog[4]}&blog_title=${blog[1]}&blog_topic=${blog[2]}" />"> 
+          <a href="<c:url value="/editblog?blog_id=${blog[0]}" />">
             <button type="button" class="btn btn-outline-info btn-lg px-4">Edit</button>
           </a>
           
-          <a href="<c:url value="/deleteblog?blog_user_name=${blog[4]}&blog_title=${blog[1]}&blog_topic=${blog[2]}" />">
+          <a href="<c:url value="/deleteblog?blog_id=${blog[0]}" />">
             <button type="button" class="btn btn-outline-danger btn-lg px-4">Delete</button>
           </a>
           

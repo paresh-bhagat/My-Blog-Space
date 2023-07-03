@@ -69,7 +69,7 @@ public class UserService {
 		
 		this.userdao.add_blog(user_name, temp);
 		
-		String num = this.userdao.getBlogId(user_name,blog_title,blog_topic);
+		String num = this.userdao.getBlogId(user_name,blog_title,blog_topic,date);
 		// convert imgae to byte data
 		
 		byte[] data = file.getBytes();
@@ -151,19 +151,19 @@ public class UserService {
 		return sortMapUsingList(temp);
 	}
 
-	public List<String> getblogdetails(String user_name, String blog_title, String blog_topic) {
+	public List<String> getblogdetails(String blog_id) {
 		
-		BlogList temp = this.userdao.get_blog_details(user_name,blog_title,blog_topic);
+		BlogList temp = this.userdao.get_blog_details(blog_id);
 		
 		List<String> result = new ArrayList<String>();
 		
 		SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
 		
 		result.add( Integer.toString(temp.getId()) );
-		result.add( blog_title );
-		result.add( blog_topic );
+		result.add( temp.getBlog_title() );
+		result.add( temp.getBlog_topic() );
 		result.add( temp.getBlog_content() );
-		result.add( user_name );
+		result.add( temp.getUser_info().getUser_name());
 		result.add( formatDate.format(temp.getBlog_date()) );
 		
 		return result;
@@ -171,17 +171,16 @@ public class UserService {
 	
 	// update blog
 	
-	public void updateblog(String user_name, String blog_title, String blog_topic, 
+	public void updateblog(String blog_title, String blog_topic, 
 			String blog_content, CommonsMultipartFile file, String path, 
-			String old_blog_title,String old_blog_topic) throws Exception {
+			String blog_id) throws Exception {
 		
 		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");  
 	    Date date = new Date();
 		
-		this.userdao.update_blog(user_name, blog_title, blog_topic, blog_content, date, 
-				old_blog_title, old_blog_topic);
+		this.userdao.update_blog(blog_title, blog_topic, blog_content, date, blog_id);
 		
-		String num = this.userdao.getBlogId(user_name,blog_title,blog_topic);
+		String num = blog_id;
 		
 		if ( file==null || file.isEmpty()==true )
 		{
@@ -218,13 +217,13 @@ public class UserService {
 	
 	//delete blog
 	
-	public void deleteblog(String user_name, String blog_title, String blog_topic, String path) {
+	public void deleteblog(String user_name, String blog_id, String path) {
 		
 		// get id of blog 
 		
-		String num = this.userdao.getBlogId(user_name,blog_title,blog_topic);
+		String num = blog_id;
 		
-		this.userdao.delete_blog(user_name, blog_title, blog_topic);
+		this.userdao.delete_blog(user_name, blog_id);
 		
 		// after deleting blog delete file
 		

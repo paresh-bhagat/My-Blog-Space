@@ -97,30 +97,19 @@ public class UserDao {
 	
 	// get all details of a blog
 	
-	public BlogList get_blog_details(String usr_name, String blog_title, String blog_topic) {
+	public BlogList get_blog_details(String blog_id) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
-		UserInfo temp = session.get(UserInfo.class, usr_name);
-		List<BlogList> blogs_list = temp.getBlogs();
+		BlogList temp = session.get(BlogList.class, Integer.parseInt(blog_id));
 		
-		int i=0;
-		
-		for(;i<blogs_list.size();i++) {
-			
-			if( blogs_list.get(i).getBlog_title().equals(blog_title) && 
-					blogs_list.get(i).getBlog_topic().equals(blog_topic) )
-				break;
-			
-		}
-		
-		return blogs_list.get(i);
+		return temp;
 	}
 	
 	// delete a blog
 	
 	@Transactional
-	public void delete_blog(String user_id, String blog_title, String blog_topic) {
+	public void delete_blog(String user_id, String blog_id) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
@@ -132,8 +121,7 @@ public class UserDao {
 		
 		for(;i<blogs_list.size();i++) {
 			
-			if( blogs_list.get(i).getBlog_title().equals(blog_title) &&  
-					blogs_list.get(i).getBlog_topic().equals(blog_topic) )
+			if( blogs_list.get(i).getId() == Integer.parseInt(blog_id))
 				break;
 			
 		}
@@ -141,29 +129,6 @@ public class UserDao {
 		temp.remove_blog(i);
 		
 		session.update(temp);
-	}
-	
-	//check if a blog exist
-
-	public int check_blog_exist(String usr_name, String new_task) {
-		
-		Session session = this.sessionFactory.getCurrentSession();
-		
-		UserInfo temp = session.get(UserInfo.class, usr_name);
-		List<BlogList> tasks_list = temp.getBlogs();
-		
-		int ans = 0;
-		
-		for(int i=0;i<tasks_list.size();i++) {
-			
-			if(tasks_list.get(i).getBlog_title().equals(new_task))
-			{
-				ans = 1;
-				break;
-			}	
-		}
-			
-		return ans;
 	}
 	
 	// add a new blog
@@ -183,33 +148,21 @@ public class UserDao {
 	// update a blog
 	
 	@Transactional
-	public void update_blog(String usr_name, String blog_title, String blog_topic,String blog_content, Date blog_date, 
-			 String old_blog_title , String old_blog_topic) throws ParseException {
+	public void update_blog(String blog_title, String blog_topic,String blog_content, Date blog_date, 
+			 String blog_id ) throws ParseException {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
-		UserInfo temp = session.get(UserInfo.class, usr_name);
+		BlogList temp = session.get(BlogList.class, Integer.parseInt(blog_id));
 		
-		List<BlogList> blog_list = temp.getBlogs();
-		
-		int i=0;
-		
-		for(;i<blog_list.size();i++) {
-			
-			if(blog_list.get(i).getBlog_title().equals(old_blog_title) && 
-					blog_list.get(i).getBlog_topic().equals(old_blog_topic))
-				break;
-			
-		}
-		
-		temp.update_blog(i, blog_title, blog_topic, blog_content, blog_date);
+		temp.update_blog(blog_title, blog_topic, blog_content, blog_date);
 		
 		session.update(temp);
 	}
 	
 	// get the id of the blog
 	
-	public String getBlogId(String user_id, String blog_name, String blog_topic){
+	public String getBlogId(String user_id, String blog_name, String blog_topic, Date date){
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
@@ -223,7 +176,8 @@ public class UserDao {
 		
 		for(;i<blog_list.size();i++) {
 			
-			if( blog_list.get(i).getBlog_title().equals(blog_name) && blog_list.get(i).getBlog_topic().equals(blog_topic) )
+			if( blog_list.get(i).getBlog_title().equals(blog_name) && blog_list.get(i).getBlog_topic().equals(blog_topic) 
+					&& (blog_list.get(i).getBlog_date().compareTo(date)==0) )
 				break;
 			
 		}

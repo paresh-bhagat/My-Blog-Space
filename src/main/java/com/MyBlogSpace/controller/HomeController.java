@@ -70,11 +70,10 @@ public class HomeController {
 	// view a blog
 	
 	@RequestMapping(path="/viewblog",method = RequestMethod.GET)
-	public String viewBlog(@RequestParam String blog_user_name,
-			@RequestParam String blog_title,
-		    @RequestParam String blog_topic, Model model) {
+	public String viewBlog(@RequestParam String blog_id,
+		    Model model) {
 		
-		List<String> temp = this.userservice.getblogdetails(blog_user_name,blog_title,blog_topic);
+		List<String> temp = this.userservice.getblogdetails(blog_id);
 		
 		model.addAttribute("blog", temp);
 		
@@ -85,12 +84,11 @@ public class HomeController {
 	// edit a blog
 	
 	@RequestMapping(path="/editblog",method = RequestMethod.GET)
-	public String editBlog(@RequestParam String blog_user_name,
-			@RequestParam String blog_title,
-		    @RequestParam String blog_topic, Model model) {
+	public String editBlog(@RequestParam String blog_id,
+			Model model) {
 		
 		System.out.print("edit page");
-		List<String> temp = this.userservice.getblogdetails(blog_user_name, blog_title, blog_topic);
+		List<String> temp = this.userservice.getblogdetails(blog_id);
 		
 		model.addAttribute("blog", temp);
 		
@@ -100,13 +98,13 @@ public class HomeController {
 	// edit a blog error
 	
 	@RequestMapping(path="/editblogerror",method = RequestMethod.GET)
-	public String editBlogError(@RequestParam String blog_user_name,
+	public String editBlogError(@RequestParam String blog_id,
 			@RequestParam String blog_title,
 			@RequestParam String blog_topic, 
 			@RequestParam int error_type, Model model) {
 			
 			System.out.print("edit page error");
-			List<String> temp = this.userservice.getblogdetails(blog_user_name, blog_title, blog_topic);
+			List<String> temp = this.userservice.getblogdetails(blog_id);
 			
 			model.addAttribute("blog", temp);
 			model.addAttribute("error_type", error_type);
@@ -117,9 +115,7 @@ public class HomeController {
 	// update a blog
 	
 	@RequestMapping(path="/processupdateblogform",method = RequestMethod.POST)
-	public String updateBlog(@RequestParam String blog_user_name,
-			@RequestParam String old_blog_title,
-			@RequestParam String old_blog_topic,
+	public String updateBlog(@RequestParam String blog_id,
 			@RequestParam("blog_title") String title, 
 			@RequestParam("blog_topic") String topic,
 			@RequestParam("blog_content") String content, 
@@ -131,44 +127,37 @@ public class HomeController {
 		
 		if( title==null || title.length()==0 )
 		{
-			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title 
-					+ "&blog_topic=" + old_blog_topic + "&error_type=0";
+			return "redirect:/editblogerror" + "?blog_id=" + blog_id + "&error_type=0";
 		}
 			
 		if(title.length()>60)
 		{
-			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title 
-					+ "&blog_topic=" + old_blog_topic + "&error_type=1";
+			return "redirect:/editblogerror" + "?blog_id=" + blog_id + "&error_type=1";
 		}
 			
 		if( content==null || content.length()==0 )
 		{
-			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title
-					+ "&blog_topic=" + old_blog_topic + "&error_type=2";
+			return "redirect:/editblogerror" + "?blog_id=" + blog_id + "&error_type=2";
 		}
 				
 		if(content.length()>7500)
 		{
-			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title
-					+ "&blog_topic=" + old_blog_topic + "&error_type=3";
+			return "redirect:/editblogerror" + "?blog_id=" + blog_id + "&error_type=3";
 		}
 			
 		if( file!=null && file.isEmpty()==false && file.getSize() > 5242880 )
 		{
-			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title
-					+ "&blog_topic=" + old_blog_topic + "&error_type=4";
+			return "redirect:/editblogerror" + "?blog_id=" + blog_id + "&error_type=4";
 		}
 			
 		if( file!=null && file.isEmpty()==false && file.getContentType().contains("image")==false )
 		{
-			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title
-					+ "&blog_topic=" + old_blog_topic + "&error_type=5";
+			return "redirect:/editblogerror" + "?blog_id=" + blog_id + "&error_type=5";
 		}
 		
 		String path = s.getServletContext().getRealPath("/");
 		
-		this.userservice.updateblog(blog_user_name, title, topic, content, file, path,
-				old_blog_title, old_blog_topic);
+		this.userservice.updateblog(title, topic, content, file, path, blog_id);
 		
 		return "redirect:/myblogs";
 		
@@ -177,20 +166,20 @@ public class HomeController {
 	// delete a blog
 	
 	@RequestMapping(path="/deleteblog",method = RequestMethod.GET)
-	public String deleteBlog(@RequestParam String blog_user_name,
-			@RequestParam String blog_title,
-		    @RequestParam String blog_topic, 
-		    HttpSession s,
+	public String deleteBlog(@RequestParam String blog_id,
+			HttpServletRequest request,
+			HttpSession session,
 		    Model model) {
 		
 		System.out.println("delete blog page");
-		System.out.println(blog_user_name);
-		System.out.println(blog_title);
-		System.out.println(blog_topic);
 		
-		String path = s.getServletContext().getRealPath("/");
+		// get user name and path
 		
-		this.userservice.deleteblog(blog_user_name, blog_title, blog_topic, path);
+		session = request.getSession(true);
+		String user_name = (String)session.getAttribute("user_name");
+		String path = session.getServletContext().getRealPath("/");
+		
+		this.userservice.deleteblog(user_name,blog_id, path);
 		
 		return "redirect:/myblogs";
 	}

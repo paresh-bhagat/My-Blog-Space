@@ -106,6 +106,15 @@ public class BlogList {
 	public void setUser_info(UserInfo user_info) {
 		this.user_info = user_info;
 	}
+	
+	// update blog
+	public void update_blog(String new_blog_title, String new_blog_topic,String new_blog_content,
+			Date new_blog_date ) {
+			this.blog_title = new_blog_title;
+			this.blog_content = new_blog_content;
+			this.blog_topic = new_blog_topic;
+			this.blog_date = new_blog_date;
+	}
 
 }
 
