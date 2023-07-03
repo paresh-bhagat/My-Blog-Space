@@ -26,40 +26,26 @@ public class HomeController {
 	
 	@Autowired
 	private UserService userservice;
-
-	private String user_name;
 	
 	// handler for feed
 	
 	@RequestMapping(path="/feed",method = RequestMethod.GET)
-	public String feed(HttpServletRequest request, Model model) {
+	public String feed(HttpServletRequest request,HttpSession session,
+			Model model) {
 		
 		System.out.print("feed page");
 		System.out.println(this);
 		
-		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		session = request.getSession(true);
+		String user_name = (String)session.getAttribute("user_name");
 		
-        if(flashMap==null && user_name==null){
-           return "redirect:/error";
-        }
-        
-        String user_name;
-        
-        if(flashMap != null)
-        {
-        	user_name = (String) flashMap.get("user_name");
-        	this.user_name = user_name;
-        }
-        else
-        	user_name = this.user_name;
-        	
-        model.addAttribute("user_name", user_name);
+		System.out.println(user_name);
         
         LinkedHashMap<String, List<List<String>>> all_blog_details = this.userservice.getAllBlogdetails();
         
         model.addAttribute("blogs", all_blog_details);
         
-        System.out.println(user_name);
+        
        
         return "feed";
 	}
@@ -67,15 +53,16 @@ public class HomeController {
 	// see all my blogs
 	
 	@RequestMapping(path="/myblogs",method = RequestMethod.GET)
-	public String myBlogs(Model model) {
+	public String myBlogs(HttpServletRequest request,
+			HttpSession session,Model model) {
 		System.out.print("myblogs page");
-		System.out.print(this.user_name);
 		
+		session = request.getSession(true);
+		String user_name = (String)session.getAttribute("user_name");
 		
 		LinkedHashMap<String, List<List<String>>> user_blog_details = this.userservice.getUserBlogdetails(user_name);
         
         model.addAttribute("blogs", user_blog_details);
-        model.addAttribute("user_name", this.user_name);
         
 		return "myblogs";
 	}
@@ -90,7 +77,6 @@ public class HomeController {
 		List<String> temp = this.userservice.getblogdetails(blog_user_name,blog_title,blog_topic);
 		
 		model.addAttribute("blog", temp);
-		model.addAttribute("user_name", this.user_name);
 		
 		System.out.print("timeline page");
 		return "blogview";
@@ -106,7 +92,6 @@ public class HomeController {
 		System.out.print("edit page");
 		List<String> temp = this.userservice.getblogdetails(blog_user_name, blog_title, blog_topic);
 		
-		model.addAttribute("user_name", this.user_name);
 		model.addAttribute("blog", temp);
 		
 		return "blogedit";
@@ -123,7 +108,6 @@ public class HomeController {
 			System.out.print("edit page error");
 			List<String> temp = this.userservice.getblogdetails(blog_user_name, blog_title, blog_topic);
 			
-			model.addAttribute("user_name", this.user_name);
 			model.addAttribute("blog", temp);
 			model.addAttribute("error_type", error_type);
 			
@@ -185,7 +169,6 @@ public class HomeController {
 		
 		this.userservice.updateblog(blog_user_name, title, topic, content, file, path,
 				old_blog_title, old_blog_topic);
-		System.out.print(user_name);
 		
 		return "redirect:/myblogs";
 		
@@ -217,7 +200,6 @@ public class HomeController {
 	@RequestMapping(path="/newblog",method = RequestMethod.GET)
 	public String newBlog(Model model) {
 		System.out.print("new blog page");
-		System.out.print(this.user_name);
 		return "newblog";
 	}
 	
@@ -228,7 +210,8 @@ public class HomeController {
 			@RequestParam("blog_topic") String topic,
 			@RequestParam("blog_content") String content, 
 			@RequestParam("blog_postimage") CommonsMultipartFile file,
-			HttpSession s,
+			HttpServletRequest request,
+			HttpSession session,
 			RedirectAttributes redirectAttributes) throws Exception {
 		
 		System.out.print("insid enew blog form");
@@ -285,8 +268,12 @@ public class HomeController {
 			return "redirect:/newblogerror?error_type=6";
 		}
 		
-		String path = s.getServletContext().getRealPath("/");
-		this.userservice.addNewBlog(this.user_name,title,topic,content,file,path);
+		
+		session = request.getSession(true);
+		String user_name = (String)session.getAttribute("user_name");
+		
+		String path = session.getServletContext().getRealPath("/");
+		this.userservice.addNewBlog(user_name,title,topic,content,file,path);
 		System.out.print(user_name);
 		return "redirect:/myblogs";
 	}
@@ -298,7 +285,6 @@ public class HomeController {
 			@RequestParam int error_type,
 			Model model) {
 		System.out.print("new blog error page");
-		System.out.print(this.user_name);
 		
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		
@@ -321,12 +307,15 @@ public class HomeController {
 	// profile
 	
 	@RequestMapping(path="/profile",method = RequestMethod.GET)
-	public String profile(Model model) {
+	public String profile(HttpServletRequest request, HttpSession session, Model model) {
 		System.out.print("myblogs page");
-		System.out.print(this.user_name);
+		
+		session = request.getSession(true);
+		String user_name = (String)session.getAttribute("user_name");
+		System.out.print(user_name);
         
-		int blogs = this.userservice.getBlogNumber(this.user_name);
-        model.addAttribute("user_name", this.user_name);
+		int blogs = this.userservice.getBlogNumber(user_name);
+        model.addAttribute("user_name", user_name);
         model.addAttribute("blogs", blogs);
         
 		return "profile";
@@ -335,9 +324,9 @@ public class HomeController {
 	// logout
 	
 	@RequestMapping(path="/logout",method = RequestMethod.GET)
-	public String logout() {
+	public String logout(HttpSession session) {
 		System.out.print("logout page");
-		System.out.print(this.user_name);
+		session.invalidate();
         
 		return "redirect:/";
 	}
@@ -345,13 +334,16 @@ public class HomeController {
 	// delete
 	
 	@RequestMapping(path="/deleteaccount",method = RequestMethod.GET)
-	public String delete(HttpSession s) {
+	public String delete(HttpServletRequest request, HttpSession session) {
 		
 		System.out.print("logout page");
-		System.out.print(this.user_name);
-		String path = s.getServletContext().getRealPath("/");
+		session = request.getSession(true);
+		String user_name = (String)session.getAttribute("user_name");
+		System.out.print(user_name);
 		
-        this.userservice.deleteAccount(this.user_name,path);
+		String path = session.getServletContext().getRealPath("/");
+		
+        this.userservice.deleteAccount(user_name,path);
 		return "redirect:/";
 	}
 
