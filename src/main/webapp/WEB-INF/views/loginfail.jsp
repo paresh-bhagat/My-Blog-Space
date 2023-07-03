@@ -70,6 +70,11 @@
             
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
         
+         <div class="mt-3">
+         	<p>New user? <a href="<c:url value="/SignUp" />">Signup</a></p>
+         	<a href="<c:url value="/" />">Home</a>
+         </div>
+        
       </form>
     </main>
 

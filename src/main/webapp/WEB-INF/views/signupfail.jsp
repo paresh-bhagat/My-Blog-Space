@@ -78,6 +78,11 @@
                     
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
                     
+                    <div class="p-2">
+                    	<p>Already an user? <a href="<c:url value="/login" />">Login</a></p>
+                    	<a href="<c:url value="/" />">Home</a>
+                    </div>
+                    
                   </form>
                 </div>
               </div>
