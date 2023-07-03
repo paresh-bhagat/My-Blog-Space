@@ -22,6 +22,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     
+    <!-- bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
      <!-- mycss -->
     <link href="<c:url value="/resources/css/feed.css" />" rel="stylesheet" >
 
@@ -190,7 +193,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                     
-                    <a href="<c:url value="/viewblog?blog_id=${blog[0]}" />">
+                    <a href="<c:url value="/viewblog?blog_id=${blog[0]}&previous=feed" />">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                     </a>
                     <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->     
@@ -220,8 +223,8 @@
 
   <!-- FOOTER -->
   <footer class="container">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2023-2024 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <a href="#" class="float-end"><i class="bi bi-arrow-up-circle-fill" style="font-size: 2rem; color: cornflowerblue;"></i></a>
+    <p class="fst-italic">Made by Paresh</p>
   </footer>
 
 </main>

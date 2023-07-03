@@ -71,6 +71,7 @@ public class HomeController {
 	
 	@RequestMapping(path="/viewblog",method = RequestMethod.GET)
 	public String viewBlog(@RequestParam String blog_id,
+			@RequestParam String previous,
 			HttpServletRequest request,
 			HttpSession session,
 		    Model model) {
@@ -87,6 +88,7 @@ public class HomeController {
 		
         model.addAttribute("authenticate", check_user);
 		model.addAttribute("blog", temp);
+		model.addAttribute("previous", previous);
 		
 		System.out.print("viewblog page");
 		return "blogview";
@@ -118,8 +120,6 @@ public class HomeController {
 	
 	@RequestMapping(path="/editblogerror",method = RequestMethod.GET)
 	public String editBlogError(@RequestParam String blog_id,
-			@RequestParam String blog_title,
-			@RequestParam String blog_topic, 
 			@RequestParam int error_type,
 			HttpServletRequest request,
 			HttpSession session,Model model) {
@@ -186,7 +186,7 @@ public class HomeController {
 		
 		this.userservice.updateblog(title, topic, content, file, path, blog_id);
 		
-		return "redirect:/myblogs";
+		return "redirect:/feed";
 		
 	}
 	
@@ -212,7 +212,7 @@ public class HomeController {
 		
 		this.userservice.deleteblog(user_name,blog_id, path);
 		
-		return "redirect:/myblogs";
+		return "redirect:/feed";
 	}
 	
 	// create a new blog
@@ -294,8 +294,9 @@ public class HomeController {
 		
 		String path = session.getServletContext().getRealPath("/");
 		this.userservice.addNewBlog(user_name,title,topic,content,file,path);
+		
 		System.out.print(user_name);
-		return "redirect:/myblogs";
+		return "redirect:/feed";
 	}
 	
 	// new blog error
