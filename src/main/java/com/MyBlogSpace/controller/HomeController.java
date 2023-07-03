@@ -71,13 +71,24 @@ public class HomeController {
 	
 	@RequestMapping(path="/viewblog",method = RequestMethod.GET)
 	public String viewBlog(@RequestParam String blog_id,
+			HttpServletRequest request,
+			HttpSession session,
 		    Model model) {
 		
 		List<String> temp = this.userservice.getblogdetails(blog_id);
 		
+		session = request.getSession(true);
+		String user_name = (String)session.getAttribute("user_name");
+		
+		int check_user=0;
+		
+		if(user_name.equals(temp.get(4)))
+			check_user=1;
+		
+        model.addAttribute("authenticate", check_user);
 		model.addAttribute("blog", temp);
 		
-		System.out.print("timeline page");
+		System.out.print("viewblog page");
 		return "blogview";
 	}
 	
@@ -85,10 +96,18 @@ public class HomeController {
 	
 	@RequestMapping(path="/editblog",method = RequestMethod.GET)
 	public String editBlog(@RequestParam String blog_id,
+			HttpServletRequest request,
+			HttpSession session,
 			Model model) {
 		
 		System.out.print("edit page");
 		List<String> temp = this.userservice.getblogdetails(blog_id);
+		
+		// check whether user is correct
+		session = request.getSession(true);
+		String user_name = (String)session.getAttribute("user_name");
+		if(user_name.equals(temp.get(4))==false)
+			return "redirect:/error";
 		
 		model.addAttribute("blog", temp);
 		
@@ -101,10 +120,18 @@ public class HomeController {
 	public String editBlogError(@RequestParam String blog_id,
 			@RequestParam String blog_title,
 			@RequestParam String blog_topic, 
-			@RequestParam int error_type, Model model) {
+			@RequestParam int error_type,
+			HttpServletRequest request,
+			HttpSession session,Model model) {
 			
 			System.out.print("edit page error");
 			List<String> temp = this.userservice.getblogdetails(blog_id);
+			
+			// check whether user is correct
+			session = request.getSession(true);
+			String user_name = (String)session.getAttribute("user_name");
+			if(user_name.equals(temp.get(4))==false)
+				return "redirect:/error";
 			
 			model.addAttribute("blog", temp);
 			model.addAttribute("error_type", error_type);
@@ -173,10 +200,14 @@ public class HomeController {
 		
 		System.out.println("delete blog page");
 		
-		// get user name and path
-		
+		// check whether user is correct
+		List<String> temp = this.userservice.getblogdetails(blog_id);
 		session = request.getSession(true);
 		String user_name = (String)session.getAttribute("user_name");
+		if(user_name.equals(temp.get(4))==false)
+			return "redirect:/error";
+		
+		// get user name and path
 		String path = session.getServletContext().getRealPath("/");
 		
 		this.userservice.deleteblog(user_name,blog_id, path);

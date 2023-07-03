@@ -107,10 +107,6 @@
 	<!-- buttons -->
 	
     <div class="d-grid gap-3 d-flex justify-content-center m-5">
-    
-    	<a href="<c:url value="/myblogs" />">
-            <button type="button" class="btn btn-outline-secondary btn-lg px-4"">Back</button>
-        </a>
         
         <button class="btn btn-outline-warning btn-lg px-4" type="reset" >Reset</button>
         
