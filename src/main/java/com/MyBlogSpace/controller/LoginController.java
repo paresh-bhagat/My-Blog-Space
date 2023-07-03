@@ -62,20 +62,20 @@ public class LoginController {
 	
 	
 	@RequestMapping(path="/processloginform", method=RequestMethod.POST)
-	public String handleLogInForm(@RequestParam("user_id") String user_id,
+	public String handleLogInForm(@RequestParam("user_name") String user_name,
 			@RequestParam("user_password") String user_password, 
 			RedirectAttributes redirectAttributes) {
 		
 		
-		if( user_id.length() > 20 || user_password.length() > 20 )
+		if( user_name.length() > 20 || user_password.length() > 20 )
 			return "redirect:/loginfail?error_type=0";
 		
-		boolean exist = userservice.checkuser(user_id,user_password);
+		boolean exist = userservice.checkuser(user_name,user_password);
 		
 		if(exist==false)
 			return "redirect:/loginfail?error_type=1";
 		
-		redirectAttributes.addFlashAttribute("user_id",user_id );
+		redirectAttributes.addFlashAttribute("user_name",user_name );
 		
 		return "redirect:/feed";
 	}
@@ -83,19 +83,19 @@ public class LoginController {
 	
 	
 	@RequestMapping(path="/processsignupform", method=RequestMethod.POST)
-	public String handleSignUpForm(@RequestParam("user_id") String user_id, 
+	public String handleSignUpForm(@RequestParam("user_name") String user_name,
 			@RequestParam("user_password") String user_password, 
 			RedirectAttributes redirectAttributes ) {
 		
 		
-		if( user_id==null || user_id.length()==0 || user_password==null || user_password.length()==0  )
+		if( user_name==null || user_name.length()==0 || user_password==null || user_password.length()==0  )
 			return "redirect:/SignUpfail?error_type=0";
 		
-		if( user_id.length() > 20 || user_password.length() > 20 )
+		if( user_name.length() > 20 || user_password.length() > 20 )
 			return "redirect:/SignUpfail?error_type=1";
 		
 		UserInfo user = new UserInfo();
-		user.setUser_id(user_id);
+		user.setUser_name(user_name);
 		user.setUser_password(user_password);
 		
 		List<BlogList> list = new ArrayList<BlogList>();
@@ -107,7 +107,7 @@ public class LoginController {
 		if(valid==false)
 			return "redirect:/SignUpfail?error_type=2";
 		
-		redirectAttributes.addFlashAttribute("user_id",user_id );
+		redirectAttributes.addFlashAttribute("user_name",user_name );
 		
 		return "redirect:/feed";
 		

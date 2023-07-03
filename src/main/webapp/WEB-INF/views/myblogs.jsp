@@ -149,7 +149,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                     
-                    <a href="<c:url value="/viewblog?blog_user_id=${blog[2]}&blog_name=${blog[1]}&blog_topic=${entry.key}" />">
+                    <a href="<c:url value="/viewblog?blog_user_name=${blog[2]}&blog_title=${blog[1]}&blog_topic=${entry.key}" />">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                     </a>
                     <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->     

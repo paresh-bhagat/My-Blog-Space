@@ -83,11 +83,11 @@
           	<button type="button" class="btn btn-outline-secondary btn-lg px-4">Back</button>
           </a>
           	
-          <a href="<c:url value="/editblog?blog_user_id=${blog[4]}&blog_name=${blog[1]}&blog_topic=${blog[2]}" />"> 
+          <a href="<c:url value="/editblog?blog_user_name=${blog[4]}&blog_title=${blog[1]}&blog_topic=${blog[2]}" />"> 
             <button type="button" class="btn btn-outline-info btn-lg px-4">Edit</button>
           </a>
           
-          <a href="<c:url value="/deleteblog?blog_user_id=${blog[4]}&blog_name=${blog[1]}&blog_topic=${blog[2]}" />">
+          <a href="<c:url value="/deleteblog?blog_user_name=${blog[4]}&blog_title=${blog[1]}&blog_topic=${blog[2]}" />">
             <button type="button" class="btn btn-outline-danger btn-lg px-4">Delete</button>
           </a>
           

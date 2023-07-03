@@ -27,7 +27,7 @@ public class HomeController {
 	@Autowired
 	private UserService userservice;
 
-	private String user_id;
+	private String user_name;
 	
 	// handler for feed
 	
@@ -39,28 +39,27 @@ public class HomeController {
 		
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		
-        if(flashMap==null && user_id==null){
+        if(flashMap==null && user_name==null){
            return "redirect:/error";
         }
         
-        String user_id;
+        String user_name;
         
         if(flashMap != null)
         {
-        	user_id = (String) flashMap.get("user_id");
-        	this.user_id = user_id;
+        	user_name = (String) flashMap.get("user_name");
+        	this.user_name = user_name;
         }
         else
-        {
-        	user_id = this.user_id;
-        	model.addAttribute("user_id", user_id);
-        }
+        	user_name = this.user_name;
+        	
+        model.addAttribute("user_name", user_name);
         
         LinkedHashMap<String, List<List<String>>> all_blog_details = this.userservice.getAllBlogdetails();
         
         model.addAttribute("blogs", all_blog_details);
         
-        System.out.println(user_id);
+        System.out.println(user_name);
        
         return "feed";
 	}
@@ -70,13 +69,13 @@ public class HomeController {
 	@RequestMapping(path="/myblogs",method = RequestMethod.GET)
 	public String myBlogs(Model model) {
 		System.out.print("myblogs page");
-		System.out.print(this.user_id);
+		System.out.print(this.user_name);
 		
 		
-		LinkedHashMap<String, List<List<String>>> user_blog_details = this.userservice.getUserBlogdetails(user_id);
+		LinkedHashMap<String, List<List<String>>> user_blog_details = this.userservice.getUserBlogdetails(user_name);
         
         model.addAttribute("blogs", user_blog_details);
-        model.addAttribute("user_id", this.user_id);
+        model.addAttribute("user_name", this.user_name);
         
 		return "myblogs";
 	}
@@ -84,14 +83,14 @@ public class HomeController {
 	// view a blog
 	
 	@RequestMapping(path="/viewblog",method = RequestMethod.GET)
-	public String viewBlog(@RequestParam String blog_user_id,
-			@RequestParam String blog_name,
+	public String viewBlog(@RequestParam String blog_user_name,
+			@RequestParam String blog_title,
 		    @RequestParam String blog_topic, Model model) {
 		
-		List<String> temp = this.userservice.getblogdetails(blog_user_id,blog_name,blog_topic);
+		List<String> temp = this.userservice.getblogdetails(blog_user_name,blog_title,blog_topic);
 		
 		model.addAttribute("blog", temp);
-		model.addAttribute("user_id", this.user_id);
+		model.addAttribute("user_name", this.user_name);
 		
 		System.out.print("timeline page");
 		return "blogview";
@@ -100,14 +99,14 @@ public class HomeController {
 	// edit a blog
 	
 	@RequestMapping(path="/editblog",method = RequestMethod.GET)
-	public String editBlog(@RequestParam String blog_user_id,
-			@RequestParam String blog_name,
+	public String editBlog(@RequestParam String blog_user_name,
+			@RequestParam String blog_title,
 		    @RequestParam String blog_topic, Model model) {
 		
 		System.out.print("edit page");
-		List<String> temp = this.userservice.getblogdetails(blog_user_id, blog_name, blog_topic);
+		List<String> temp = this.userservice.getblogdetails(blog_user_name, blog_title, blog_topic);
 		
-		model.addAttribute("user_id", this.user_id);
+		model.addAttribute("user_name", this.user_name);
 		model.addAttribute("blog", temp);
 		
 		return "blogedit";
@@ -116,15 +115,15 @@ public class HomeController {
 	// edit a blog error
 	
 	@RequestMapping(path="/editblogerror",method = RequestMethod.GET)
-	public String editBlogError(@RequestParam String blog_user_id,
+	public String editBlogError(@RequestParam String blog_user_name,
 			@RequestParam String blog_title,
 			@RequestParam String blog_topic, 
 			@RequestParam int error_type, Model model) {
 			
 			System.out.print("edit page error");
-			List<String> temp = this.userservice.getblogdetails(blog_user_id, blog_title, blog_topic);
+			List<String> temp = this.userservice.getblogdetails(blog_user_name, blog_title, blog_topic);
 			
-			model.addAttribute("user_id", this.user_id);
+			model.addAttribute("user_name", this.user_name);
 			model.addAttribute("blog", temp);
 			model.addAttribute("error_type", error_type);
 			
@@ -134,7 +133,7 @@ public class HomeController {
 	// update a blog
 	
 	@RequestMapping(path="/processupdateblogform",method = RequestMethod.POST)
-	public String updateBlog(@RequestParam String blog_user_id,
+	public String updateBlog(@RequestParam String blog_user_name,
 			@RequestParam String old_blog_title,
 			@RequestParam String old_blog_topic,
 			@RequestParam("blog_title") String title, 
@@ -148,45 +147,45 @@ public class HomeController {
 		
 		if( title==null || title.length()==0 )
 		{
-			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title 
+			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title 
 					+ "&blog_topic=" + old_blog_topic + "&error_type=0";
 		}
 			
 		if(title.length()>60)
 		{
-			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title 
+			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title 
 					+ "&blog_topic=" + old_blog_topic + "&error_type=1";
 		}
 			
 		if( content==null || content.length()==0 )
 		{
-			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title
+			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title
 					+ "&blog_topic=" + old_blog_topic + "&error_type=2";
 		}
 				
 		if(content.length()>7500)
 		{
-			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title
+			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title
 					+ "&blog_topic=" + old_blog_topic + "&error_type=3";
 		}
 			
 		if( file!=null && file.isEmpty()==false && file.getSize() > 5242880 )
 		{
-			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title
+			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title
 					+ "&blog_topic=" + old_blog_topic + "&error_type=4";
 		}
 			
 		if( file!=null && file.isEmpty()==false && file.getContentType().contains("image")==false )
 		{
-			return "redirect:/editblogerror" + "?blog_user_id=" + blog_user_id + "&blog_title=" + old_blog_title
+			return "redirect:/editblogerror" + "?blog_user_name=" + blog_user_name + "&blog_title=" + old_blog_title
 					+ "&blog_topic=" + old_blog_topic + "&error_type=5";
 		}
 		
 		String path = s.getServletContext().getRealPath("/");
 		
-		this.userservice.updateblog(blog_user_id, title, topic, content, file, path,
+		this.userservice.updateblog(blog_user_name, title, topic, content, file, path,
 				old_blog_title, old_blog_topic);
-		System.out.print(user_id);
+		System.out.print(user_name);
 		
 		return "redirect:/myblogs";
 		
@@ -195,20 +194,20 @@ public class HomeController {
 	// delete a blog
 	
 	@RequestMapping(path="/deleteblog",method = RequestMethod.GET)
-	public String deleteBlog(@RequestParam String blog_user_id,
-			@RequestParam String blog_name,
+	public String deleteBlog(@RequestParam String blog_user_name,
+			@RequestParam String blog_title,
 		    @RequestParam String blog_topic, 
 		    HttpSession s,
 		    Model model) {
 		
 		System.out.println("delete blog page");
-		System.out.println(blog_user_id);
-		System.out.println(blog_name);
+		System.out.println(blog_user_name);
+		System.out.println(blog_title);
 		System.out.println(blog_topic);
 		
 		String path = s.getServletContext().getRealPath("/");
 		
-		this.userservice.deleteblog(blog_user_id, blog_name, blog_topic, path);
+		this.userservice.deleteblog(blog_user_name, blog_title, blog_topic, path);
 		
 		return "redirect:/myblogs";
 	}
@@ -218,7 +217,7 @@ public class HomeController {
 	@RequestMapping(path="/newblog",method = RequestMethod.GET)
 	public String newBlog(Model model) {
 		System.out.print("new blog page");
-		System.out.print(this.user_id);
+		System.out.print(this.user_name);
 		return "newblog";
 	}
 	
@@ -287,8 +286,8 @@ public class HomeController {
 		}
 		
 		String path = s.getServletContext().getRealPath("/");
-		this.userservice.addNewBlog(this.user_id,title,topic,content,file,path);
-		System.out.print(user_id);
+		this.userservice.addNewBlog(this.user_name,title,topic,content,file,path);
+		System.out.print(user_name);
 		return "redirect:/myblogs";
 	}
 	
@@ -299,7 +298,7 @@ public class HomeController {
 			@RequestParam int error_type,
 			Model model) {
 		System.out.print("new blog error page");
-		System.out.print(this.user_id);
+		System.out.print(this.user_name);
 		
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		
@@ -312,6 +311,7 @@ public class HomeController {
         	blog_content = (String) flashMap.get("blog_content");
         	
         }
+        
 		model.addAttribute("blog_title", blog_title);
 		model.addAttribute("blog_content", blog_content);
 		model.addAttribute("error_type", error_type);
@@ -323,10 +323,10 @@ public class HomeController {
 	@RequestMapping(path="/profile",method = RequestMethod.GET)
 	public String profile(Model model) {
 		System.out.print("myblogs page");
-		System.out.print(this.user_id);
+		System.out.print(this.user_name);
         
-		int blogs = this.userservice.getBlogNumber(this.user_id);
-        model.addAttribute("user_id", this.user_id);
+		int blogs = this.userservice.getBlogNumber(this.user_name);
+        model.addAttribute("user_name", this.user_name);
         model.addAttribute("blogs", blogs);
         
 		return "profile";
@@ -337,7 +337,7 @@ public class HomeController {
 	@RequestMapping(path="/logout",method = RequestMethod.GET)
 	public String logout() {
 		System.out.print("logout page");
-		System.out.print(this.user_id);
+		System.out.print(this.user_name);
         
 		return "redirect:/";
 	}
@@ -348,10 +348,10 @@ public class HomeController {
 	public String delete(HttpSession s) {
 		
 		System.out.print("logout page");
-		System.out.print(this.user_id);
+		System.out.print(this.user_name);
 		String path = s.getServletContext().getRealPath("/");
 		
-        this.userservice.deleteAccount(this.user_id,path);
+        this.userservice.deleteAccount(this.user_name,path);
 		return "redirect:/";
 	}
 

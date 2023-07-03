@@ -29,10 +29,10 @@ public class UserService {
 	
 	//check if user entered values during sigin is correct
 	
-	public boolean checkuser(String user_id,String user_password) {
+	public boolean checkuser(String user_name,String user_password) {
 		
-		if(this.userdao.check_userid(user_id) == 1 && 
-				this.userdao.get_userpassword(user_id).equals(user_password) ) {
+		if(this.userdao.check_userid(user_name) == 1 && 
+				this.userdao.get_userpassword(user_name).equals(user_password) ) {
 			return true;
 		}
 		
@@ -43,7 +43,7 @@ public class UserService {
 
 	public boolean addnewuser(UserInfo user) {
 		
-		if(userdao.check_userid(user.getUser_id()) == 0 )
+		if(userdao.check_userid(user.getUser_name()) == 0 )
 		{
 			this.userdao.add_new_account(user);
 			return true;
@@ -53,23 +53,23 @@ public class UserService {
 	
 	// add new blog 
 	
-	public void addNewBlog(String user_id, String blog_name, String blog_topic, 
+	public void addNewBlog(String user_name, String blog_title, String blog_topic, 
 			String blog_content, CommonsMultipartFile file, String path) throws Exception {
 		
 		BlogList temp = new BlogList();
 		
-		temp.setBlog_name(blog_name);
+		temp.setBlog_title(blog_title);
 		temp.setBlog_topic(blog_topic);
-		temp.setBlog_details(blog_content);
+		temp.setBlog_content(blog_content);
 		
 		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");  
 	    Date date = new Date();
 	    
 	    temp.setBlog_date(date);
 		
-		this.userdao.add_blog(user_id, temp);
+		this.userdao.add_blog(user_name, temp);
 		
-		String num = this.userdao.getBlogId(user_id,blog_name,blog_topic);
+		String num = this.userdao.getBlogId(user_name,blog_title,blog_topic);
 		// convert imgae to byte data
 		
 		byte[] data = file.getBytes();
@@ -114,8 +114,8 @@ public class UserService {
 			List<String> temp = new ArrayList<String>();
 			
 			temp.add( Integer.toString(blog_list.get(i).getId()));
-			temp.add(blog_list.get(i).getBlog_name());
-			temp.add(blog_list.get(i).getUser_info().getUser_id());
+			temp.add(blog_list.get(i).getBlog_title());
+			temp.add(blog_list.get(i).getUser_info().getUser_name());
 			temp.add(formatDate.format(blog_list.get(i).getBlog_date()));
 			
 			map.get(blog_list.get(i).getBlog_topic()).add(temp);
@@ -144,26 +144,26 @@ public class UserService {
 		return sortMapUsingList(temp);
 	}
 	
-	public LinkedHashMap<String, List<List<String>>> getUserBlogdetails(String user_id) {
+	public LinkedHashMap<String, List<List<String>>> getUserBlogdetails(String user_name) {
 		
-		List<BlogList> temp = this.userdao.get_all_blogs_user(user_id);
+		List<BlogList> temp = this.userdao.get_all_blogs_user(user_name);
 		
 		return sortMapUsingList(temp);
 	}
 
-	public List<String> getblogdetails(String user_id, String blog_name, String blog_topic) {
+	public List<String> getblogdetails(String user_name, String blog_title, String blog_topic) {
 		
-		BlogList temp = this.userdao.get_blog_details(user_id,blog_name,blog_topic);
+		BlogList temp = this.userdao.get_blog_details(user_name,blog_title,blog_topic);
 		
 		List<String> result = new ArrayList<String>();
 		
 		SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
 		
 		result.add( Integer.toString(temp.getId()) );
-		result.add( blog_name );
+		result.add( blog_title );
 		result.add( blog_topic );
-		result.add( temp.getBlog_details() );
-		result.add( user_id );
+		result.add( temp.getBlog_content() );
+		result.add( user_name );
 		result.add( formatDate.format(temp.getBlog_date()) );
 		
 		return result;
@@ -171,17 +171,17 @@ public class UserService {
 	
 	// update blog
 	
-	public void updateblog(String user_id, String blog_name, String blog_topic, 
+	public void updateblog(String user_name, String blog_title, String blog_topic, 
 			String blog_content, CommonsMultipartFile file, String path, 
-			String old_blog_name,String old_blog_topic) throws Exception {
+			String old_blog_title,String old_blog_topic) throws Exception {
 		
 		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");  
 	    Date date = new Date();
 		
-		this.userdao.update_blog(user_id, blog_name, blog_topic, blog_content, date, 
-				old_blog_name, old_blog_topic);
+		this.userdao.update_blog(user_name, blog_title, blog_topic, blog_content, date, 
+				old_blog_title, old_blog_topic);
 		
-		String num = this.userdao.getBlogId(user_id,blog_name,blog_topic);
+		String num = this.userdao.getBlogId(user_name,blog_title,blog_topic);
 		
 		if ( file==null || file.isEmpty()==true )
 		{
@@ -218,13 +218,13 @@ public class UserService {
 	
 	//delete blog
 	
-	public void deleteblog(String user_id, String blog_name, String blog_topic, String path) {
+	public void deleteblog(String user_name, String blog_title, String blog_topic, String path) {
 		
 		// get id of blog 
 		
-		String num = this.userdao.getBlogId(user_id,blog_name,blog_topic);
+		String num = this.userdao.getBlogId(user_name,blog_title,blog_topic);
 		
-		this.userdao.delete_blog(user_id, blog_name, blog_topic);
+		this.userdao.delete_blog(user_name, blog_title, blog_topic);
 		
 		// after deleting blog delete file
 		
@@ -241,11 +241,11 @@ public class UserService {
 	
 	// remove user and all blogs
 	
-	public void deleteAccount(String user_id, String path) {
+	public void deleteAccount(String user_name, String path) {
 		
 		// first delete all images
 		
-		List<BlogList> temp = this.userdao.get_all_blogs_user(user_id);
+		List<BlogList> temp = this.userdao.get_all_blogs_user(user_name);
 		
 		for(int i=0 ; i<temp.size() ; i++)
 		{
@@ -262,14 +262,14 @@ public class UserService {
 		}
 		
 		// now delete account
-		this.userdao.remove_user(user_id);
+		this.userdao.remove_user(user_name);
 	}
 	
 	// get number of blogs by user
 	
-	public int getBlogNumber(String user_id) {
+	public int getBlogNumber(String user_name) {
 		
-		return this.userdao.getBlogNumber(user_id);
+		return this.userdao.getBlogNumber(user_name);
 	}
 		
 }

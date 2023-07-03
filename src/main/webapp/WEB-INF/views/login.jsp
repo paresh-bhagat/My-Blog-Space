@@ -38,7 +38,7 @@
           type="text" 
           class="form-control rounded-3" 
           id="floatingInput"
-          name="user_id"
+          name="user_name"
           placeholder="paresh">
           <label for="floatingInput">Username</label>
         </div>

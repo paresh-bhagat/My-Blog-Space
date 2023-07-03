@@ -16,8 +16,8 @@ import javax.persistence.Table;
 public class UserInfo {
 	
 	@Id
-	@Column(length=20,name="User_Id")
-	private String user_id;
+	@Column(length=20,name="User_Name")
+	private String user_name;
 	
 	@Column(length=20,name="User_Password")
 	private String user_password;
@@ -26,9 +26,9 @@ public class UserInfo {
 	private List<BlogList> blogs;
 	
 
-	public UserInfo(String user_id, String user_password, List<BlogList> blogs) {
+	public UserInfo(String user_name, String user_password, List<BlogList> blogs) {
 		super();
-		this.user_id = user_id;
+		this.user_name = user_name;
 		this.user_password = user_password;
 		this.blogs = blogs;
 	}
@@ -46,12 +46,12 @@ public class UserInfo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getUser_id() {
-		return user_id;
+	public String getUser_name() {
+		return user_name;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 
 	public String getUser_password() {
@@ -64,9 +64,9 @@ public class UserInfo {
 	
 	// add blog
 	
-	public void add_blog(BlogList task)
+	public void add_blog(BlogList blog)
 	{
-		this.blogs.add(task);
+		this.blogs.add(blog);
 	}
 	
 	// remove blog
@@ -76,16 +76,16 @@ public class UserInfo {
 	}
 	
 	// update blog
-	public void update_blog(int i, String new_blog_name, String blog_topic,String blog_details,Date blog_date ) {
-		this.blogs.get(i).setBlog_name(new_blog_name);
-		this.blogs.get(i).setBlog_details(blog_details);
+	public void update_blog(int i, String new_blog_title, String blog_topic,String blog_content,Date blog_date ) {
+		this.blogs.get(i).setBlog_title(new_blog_title);
+		this.blogs.get(i).setBlog_content(blog_content);
 		this.blogs.get(i).setBlog_topic(blog_topic);
 		this.blogs.get(i).setBlog_date(blog_date);
 	}
 
 	@Override
 	public String toString() {
-		return "UserInfo [user_id=" + user_id + ", user_password=" + user_password + ", blogs=" + blogs + "]";
+		return "UserInfo [user_name=" + user_name + ", user_password=" + user_password + ", blogs=" + blogs + "]";
 	}
 	
 

@@ -21,14 +21,14 @@ public class BlogList {
 	@Column(name="id")
 	private int id;
 	
-	@Column(length=70,name="Blog_Name")
-	private String blog_name;
+	@Column(length=70,name="Blog_Title")
+	private String blog_title;
 	
 	@Column(length=60,name="Blog_Topic")
 	private String blog_topic;
 	
-	@Column(length=7500,name="Blog_Details")
-	private String blog_details;
+	@Column(length=7500,name="Blog_Content")
+	private String blog_content;
 
 	@Column(name="Blog_Date")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -39,8 +39,8 @@ public class BlogList {
 	
 	@Override
 	public String toString() {
-		return "BlogList [id=" + id + ", blog_name=" + blog_name + ", blog_topic=" + blog_topic + ", blog_details="
-				+ blog_details + ", blog_date=" + blog_date + ", user_info=" + user_info + "]";
+		return "BlogList [id=" + id + ", blog_title=" + blog_title + ", blog_topic=" + blog_topic + ", blog_content="
+				+ blog_content + ", blog_date=" + blog_date + ", user_info=" + user_info + "]";
 	}
 
 	public BlogList() {
@@ -48,13 +48,13 @@ public class BlogList {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BlogList(int id, String blog_name, String blog_topic, String blog_details, Date blog_date,
+	public BlogList(int id, String blog_title, String blog_topic, String blog_content, Date blog_date,
 			UserInfo user_info) {
 		super();
 		this.id = id;
-		this.blog_name = blog_name;
+		this.blog_title = blog_title;
 		this.blog_topic = blog_topic;
-		this.blog_details = blog_details;
+		this.blog_content = blog_content;
 		this.blog_date = blog_date;
 		this.user_info = user_info;
 	}
@@ -67,12 +67,12 @@ public class BlogList {
 		this.id = id;
 	}
 
-	public String getBlog_name() {
-		return blog_name;
+	public String getBlog_title() {
+		return blog_title;
 	}
 
-	public void setBlog_name(String blog_name) {
-		this.blog_name = blog_name;
+	public void setBlog_title(String blog_title) {
+		this.blog_title = blog_title;
 	}
 
 	public String getBlog_topic() {
@@ -83,12 +83,12 @@ public class BlogList {
 		this.blog_topic = blog_topic;
 	}
 
-	public String getBlog_details() {
-		return blog_details;
+	public String getBlog_content() {
+		return blog_content;
 	}
 
-	public void setBlog_details(String blog_details) {
-		this.blog_details = blog_details;
+	public void setBlog_content(String blog_content) {
+		this.blog_content = blog_content;
 	}
 
 	public Date getBlog_date() {

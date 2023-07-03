@@ -66,7 +66,7 @@
 
             <div class="rounded">
               <div class="py-5">
-                <h1 class="display-5 fw-normal">Welcome ${user_id}</h1>
+                <h1 class="display-5 fw-normal">Welcome ${user_name}</h1>
                 
                 <c:if test="${blogs == 0}">
     				<p class="lead pt-2">No blogs found! </p>

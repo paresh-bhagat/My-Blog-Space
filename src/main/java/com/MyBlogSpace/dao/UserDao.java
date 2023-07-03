@@ -24,10 +24,10 @@ public class UserDao {
 	
 	//check if userid is present
 	
-	public int check_userid(String userid) {
+	public int check_userid(String user_name) {
 		
 		Session session=this.sessionFactory.getCurrentSession();
-		UserInfo usr_info = session.get(UserInfo.class, userid);
+		UserInfo usr_info = session.get(UserInfo.class, user_name);
 		
 		if(usr_info == null)
 			return 0;
@@ -46,10 +46,10 @@ public class UserDao {
 	
 	// get user password of a user
 
-	public String get_userpassword(String usr_id) {
+	public String get_userpassword(String usr_name) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
-		UserInfo temp =  session.get(UserInfo.class, usr_id);
+		UserInfo temp =  session.get(UserInfo.class, usr_name);
 		return temp.getUser_password();
 	}
 	
@@ -97,7 +97,7 @@ public class UserDao {
 	
 	// get all details of a blog
 	
-	public BlogList get_blog_details(String usr_name, String blog_name, String blog_topic) {
+	public BlogList get_blog_details(String usr_name, String blog_title, String blog_topic) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
@@ -108,7 +108,7 @@ public class UserDao {
 		
 		for(;i<blogs_list.size();i++) {
 			
-			if( blogs_list.get(i).getBlog_name().equals(blog_name) && 
+			if( blogs_list.get(i).getBlog_title().equals(blog_title) && 
 					blogs_list.get(i).getBlog_topic().equals(blog_topic) )
 				break;
 			
@@ -120,7 +120,7 @@ public class UserDao {
 	// delete a blog
 	
 	@Transactional
-	public void delete_blog(String user_id, String blog_name, String blog_topic) {
+	public void delete_blog(String user_id, String blog_title, String blog_topic) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
@@ -132,7 +132,7 @@ public class UserDao {
 		
 		for(;i<blogs_list.size();i++) {
 			
-			if( blogs_list.get(i).getBlog_name().equals(blog_name) &&  
+			if( blogs_list.get(i).getBlog_title().equals(blog_title) &&  
 					blogs_list.get(i).getBlog_topic().equals(blog_topic) )
 				break;
 			
@@ -156,7 +156,7 @@ public class UserDao {
 		
 		for(int i=0;i<tasks_list.size();i++) {
 			
-			if(tasks_list.get(i).getBlog_name().equals(new_task))
+			if(tasks_list.get(i).getBlog_title().equals(new_task))
 			{
 				ans = 1;
 				break;
@@ -183,8 +183,8 @@ public class UserDao {
 	// update a blog
 	
 	@Transactional
-	public void update_blog(String usr_name, String blog_name, String blog_topic,String blog_details, Date blog_date, 
-			 String old_blog_name , String old_blog_topic) throws ParseException {
+	public void update_blog(String usr_name, String blog_title, String blog_topic,String blog_content, Date blog_date, 
+			 String old_blog_title , String old_blog_topic) throws ParseException {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
@@ -196,13 +196,13 @@ public class UserDao {
 		
 		for(;i<blog_list.size();i++) {
 			
-			if(blog_list.get(i).getBlog_name().equals(old_blog_name) && 
+			if(blog_list.get(i).getBlog_title().equals(old_blog_title) && 
 					blog_list.get(i).getBlog_topic().equals(old_blog_topic))
 				break;
 			
 		}
 		
-		temp.update_blog(i, blog_name, blog_topic, blog_details, blog_date);
+		temp.update_blog(i, blog_title, blog_topic, blog_content, blog_date);
 		
 		session.update(temp);
 	}
@@ -223,7 +223,7 @@ public class UserDao {
 		
 		for(;i<blog_list.size();i++) {
 			
-			if( blog_list.get(i).getBlog_name().equals(blog_name) && blog_list.get(i).getBlog_topic().equals(blog_topic) )
+			if( blog_list.get(i).getBlog_title().equals(blog_name) && blog_list.get(i).getBlog_topic().equals(blog_topic) )
 				break;
 			
 		}
@@ -239,10 +239,10 @@ public class UserDao {
 
 	// get number of blogs by a user
 	
-	public int getBlogNumber(String user_id) {
+	public int getBlogNumber(String user_name) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
-		UserInfo temp = session.get(UserInfo.class, user_id);
+		UserInfo temp = session.get(UserInfo.class, user_name);
 		return temp.getBlogs().size();
 	}
 
