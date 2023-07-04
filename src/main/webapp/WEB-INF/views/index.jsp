@@ -20,6 +20,9 @@
     
     <!-- mycss -->
     <link href="<c:url value="/resources/css/index.css" />" rel="stylesheet" >
+    
+    <!--favicon-->
+    <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/resources/images/favicon.ico" />">
 
   </head>
 

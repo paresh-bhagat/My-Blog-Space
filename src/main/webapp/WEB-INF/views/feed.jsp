@@ -25,6 +25,9 @@
     <!-- bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     
+     <!--favicon-->
+    <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/resources/images/favicon.ico" />">
+    
      <!-- mycss -->
     <link href="<c:url value="/resources/css/feed.css" />" rel="stylesheet" >
 
