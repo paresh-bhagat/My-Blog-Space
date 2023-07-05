@@ -1,6 +1,6 @@
 # My-Blog-Space
 
-A webapp to view,write blogs on various topics. Bootstrap is the most popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites.
+A webapp to view,write blogs on various topics.
 
 ## Frontend
 
