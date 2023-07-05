@@ -51,8 +51,4 @@ AWS (Amazon Web Services)
 
 ![Feed](feed.png)
 
----
-**NOTE**
-
-i might change,reboot or terminate EC2 instance in AWS. So site might not be accesible sometimes.
----
+> **_NOTE:_**  i might change,reboot or terminate EC2 instance in AWS. So site might not be accesible sometimes.
