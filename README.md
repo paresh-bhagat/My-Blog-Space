@@ -4,10 +4,8 @@ A webapp to view,write blogs on various topics.
 
 ## Frontend
 
-* HTML
-* CSS
-* Javascript
-* Bootstrap is used. Bootstrap is a popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites.
+* Bootstrap is a popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites.
+* Java Server Pages (JSP) is a server-side programming technology that enables the creation of dynamic, platform-independent method for building Web-based applications.
 
 ## Backend
 
